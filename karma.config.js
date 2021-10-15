@@ -3,8 +3,8 @@ webpackConfig.mode = 'production';
 
 module.exports = function(config) {
   config.set({
-    singleRun: true,
-    
+    singleRun: false,
+
     browsers: [
       'PhantomJS'
     ],
@@ -15,6 +15,10 @@ module.exports = function(config) {
 
     files: [
       'spec.bundle.js'
+    ],
+
+    reporters: [
+      'verbose'
     ],
 
     preprocessors: {
@@ -30,7 +34,8 @@ module.exports = function(config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-phantomjs-launcher'),
-      require('karma-webpack')
+      require('karma-webpack'),
+      require('karma-verbose-reporter')
     ]
   });
 };
