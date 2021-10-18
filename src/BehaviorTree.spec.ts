@@ -1,8 +1,9 @@
-import { Behavior, BehaviorStatus, BehaviorTree, Sequence } from './BehaviorTree';
+import { Behavior, BehaviorStatus, BehaviorTree } from './BehaviorTree';
+import { Sequence } from "./Sequence";
 
 const IncrementalBehavior = class extends Behavior {
-  private counter:number = 0;
-  constructor(private maxNum:number = 3){ super(); }
+  private counter: number = 0;
+  constructor(private maxNum: number = 3, private failAfter: number = Infinity) { super(); }
   onInitialize() {
     super.onInitialize();
     this.counter = 0;
@@ -10,6 +11,9 @@ const IncrementalBehavior = class extends Behavior {
   update() {
     super.update();
     this.counter += 1;
+    if (this.counter >= this.failAfter) {
+      return BehaviorStatus.FAILURE;
+    }
     return this.counter < this.maxNum ? BehaviorStatus.RUNNING : BehaviorStatus.SUCCESS;
   }
   onTerminate() {
@@ -35,7 +39,7 @@ const RunningBehavior = class extends Behavior {
 
 
 describe('BehaviorTree', () => {
-  const EmptyBehavior = class extends Behavior{};
+  const EmptyBehavior = class extends Behavior { };
 
   it('should not throw upon construction', () => {
     const attempt = () => new BehaviorTree(new EmptyBehavior());
@@ -181,7 +185,7 @@ describe('Sequence', () => {
     const firstChild = new FailingBehavior();
     const secondChild = new SuccessfulBehavior();
 
-    const tree = new Sequence([ firstChild, secondChild ]);
+    const tree = new Sequence([firstChild, secondChild]);
 
     const children = tree.getChildren();
     expect(children[0]).toEqual(firstChild);
@@ -199,7 +203,7 @@ describe('Sequence', () => {
     const thirdSpy = spyOn(thirdChild, 'tick').and.callThrough();
     const fourthSpy = spyOn(fourthChild, 'tick').and.callThrough();
 
-    const tree = new Sequence([ firstChild, secondChild, thirdChild, fourthChild ]);
+    const tree = new Sequence([firstChild, secondChild, thirdChild, fourthChild]);
 
     tree.tick();
 
@@ -219,7 +223,7 @@ describe('Sequence', () => {
     const secondSpy = spyOn(secondChild, 'tick').and.callThrough();
     const thirdSpy = spyOn(thirdChild, 'tick').and.callThrough();
 
-    const tree = new Sequence([ firstChild, secondChild, thirdChild ]);
+    const tree = new Sequence([firstChild, secondChild, thirdChild]);
 
     tree.tick();
 
@@ -239,7 +243,7 @@ describe('Sequence', () => {
     const secondSpy = spyOn(secondChild, 'tick').and.callThrough();
     const thirdSpy = spyOn(thirdChild, 'tick').and.callThrough();
 
-    const tree = new Sequence([ firstChild, secondChild, thirdChild ]);
+    const tree = new Sequence([firstChild, secondChild, thirdChild]);
 
     tree.tick();
 
@@ -259,7 +263,7 @@ describe('Sequence', () => {
     const secondSpy = spyOn(secondChild, 'tick').and.callThrough();
     const thirdSpy = spyOn(thirdChild, 'tick').and.callThrough();
 
-    const tree = new Sequence([ firstChild, secondChild, thirdChild ]);
+    const tree = new Sequence([firstChild, secondChild, thirdChild]);
 
     tree.tick();
 
@@ -270,4 +274,102 @@ describe('Sequence', () => {
     expect(tree.status).toBe(BehaviorStatus.SUCCESS);
   });
 
+  describe('long-running tasks', () => {
+    it('returns RUNNING when a subsequent task is.. RUNNING.', () => {
+      const firstChild = new SuccessfulBehavior();
+      const secondChild = new RunningBehavior();
+
+      const firstSpy = spyOn(firstChild, 'tick').and.callThrough();
+      const secondSpy = spyOn(secondChild, 'tick').and.callThrough();
+
+      const tree = new Sequence([firstChild, secondChild]);
+
+      tree.tick();
+
+      expect(firstSpy).toHaveBeenCalledTimes(1);
+      expect(secondSpy).toHaveBeenCalledTimes(1);
+
+      expect(tree.status).toBe(BehaviorStatus.RUNNING);
+    });
+
+    it('ticks the processing behavior multiple times without traversing again', () => {
+      const numRuns = 3;
+      const firstChild = new SuccessfulBehavior();
+      const secondChild = new IncrementalBehavior(numRuns);
+      const thirdChild = new SuccessfulBehavior();
+
+      const firstSpy = spyOn(firstChild, 'tick').and.callThrough();
+      const secondSpy = spyOn(secondChild, 'tick').and.callThrough();
+      const thirdSpy = spyOn(thirdChild, 'tick').and.callThrough();
+
+      const tree = new Sequence([firstChild, secondChild, thirdChild]);
+
+      for (let i = 0; i < numRuns - 1; i++) {
+        tree.tick();
+        expect(firstSpy).toHaveBeenCalledTimes(1);
+        expect(secondSpy).toHaveBeenCalledTimes(i + 1);
+        expect(thirdSpy).toHaveBeenCalledTimes(0);
+        expect(tree.status).toBe(BehaviorStatus.RUNNING);
+      }
+
+      tree.tick();
+      expect(firstSpy).toHaveBeenCalledTimes(1);
+      expect(secondSpy).toHaveBeenCalledTimes(numRuns);
+      expect(thirdSpy).toHaveBeenCalledTimes(1);
+      expect(tree.status).toBe(BehaviorStatus.SUCCESS);
+    });
+
+    it('resets back to the first child if a FAILURE status is reached', () => {
+      const firstChild = new SuccessfulBehavior();
+      const secondChild = new SuccessfulBehavior();
+      const thirdChild = new IncrementalBehavior(3, 2);
+      const fourthChild = new SuccessfulBehavior();
+
+      const firstSpy = spyOn(firstChild, 'tick').and.callThrough();
+      const secondSpy = spyOn(secondChild, 'tick').and.callThrough();
+      const thirdSpy = spyOn(thirdChild, 'tick').and.callThrough();
+      const fourthSpy = spyOn(fourthChild, 'tick').and.callThrough();
+
+      const tree = new Sequence([firstChild, secondChild, thirdChild, fourthChild]);
+
+      // expect a reset to happen
+      const thirdInitSpy = spyOn(thirdChild, 'onInitialize').and.callThrough();
+
+      tree.tick();
+      expect(firstSpy).toHaveBeenCalledTimes(1);
+      expect(secondSpy).toHaveBeenCalledTimes(1);
+      expect(thirdSpy).toHaveBeenCalledTimes(1);
+      expect(thirdInitSpy).toHaveBeenCalledTimes(1);
+      expect(tree.status).toBe(BehaviorStatus.RUNNING);
+
+      tree.tick();
+      expect(firstSpy).toHaveBeenCalledTimes(1);
+      expect(secondSpy).toHaveBeenCalledTimes(1);
+      expect(thirdSpy).toHaveBeenCalledTimes(2);
+      expect(thirdInitSpy).toHaveBeenCalledTimes(1);
+      expect(tree.status).toBe(BehaviorStatus.FAILURE);
+
+
+      tree.tick();
+      expect(firstSpy).toHaveBeenCalledTimes(2);
+      expect(secondSpy).toHaveBeenCalledTimes(2);
+      expect(thirdSpy).toHaveBeenCalledTimes(3);
+      expect(thirdInitSpy).toHaveBeenCalledTimes(2);
+      expect(tree.status).toBe(BehaviorStatus.RUNNING);
+
+      tree.tick();
+      expect(firstSpy).toHaveBeenCalledTimes(2);
+      expect(secondSpy).toHaveBeenCalledTimes(2);
+      expect(thirdSpy).toHaveBeenCalledTimes(4);
+      expect(tree.status).toBe(BehaviorStatus.FAILURE);
+    });
+
+
+  });
+
 });
+
+
+
+
+

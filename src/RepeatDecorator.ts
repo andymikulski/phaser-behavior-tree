@@ -14,16 +14,26 @@ export class RepeatDecorator extends Decorator {
 
   onInitialize = () => {
     super.onInitialize();
+    console.log('Repeat intiailized')
+  }
+
+  onTerminate = () => {
+    super.onTerminate();
     this.repeatCount = 0;
+    this.status = undefined;
+    if (this.child.status === BehaviorStatus.RUNNING) {
+      this.child.abort();
+      this.child.onTerminate();
+    }
+    console.log('Repeat terminated')
   }
 
   update = () => {
     while (true && !this.shouldAbort) {
       const status = this.child.tick();
-      if (status === BehaviorStatus.RUNNING) { return BehaviorStatus.RUNNING; }
       if (status === BehaviorStatus.FAILURE) { return BehaviorStatus.FAILURE; }
       this.repeatCount += 1;
-      if (this.repeatCount >= this.repeatLimit) { return BehaviorStatus.SUCCESS; }
+      return this.repeatCount >= this.repeatLimit ? BehaviorStatus.SUCCESS : BehaviorStatus.RUNNING;
     }
     return BehaviorStatus.ERROR;
   }
