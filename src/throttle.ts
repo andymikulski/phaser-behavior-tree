@@ -1,7 +1,3 @@
-// setInterval(() => {
-//   console.log('tick..', tree.tick());
-// }, 1000);
-
 const throttle = function (innerFnc: Function, throttleTimeMs: number) {
   let throttleTimer: any;
   return function (...args: any[]) {

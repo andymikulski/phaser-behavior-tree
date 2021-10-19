@@ -10,15 +10,12 @@ export class RandomSelector extends Sequence {
     // Randomize order
     this.children = this.children.sort(() => Math.random() > 0.5 ? 1 : -1);
 
-    while (true && !this.shouldAbort) {
-      for (let i = 0; i < this.children.length; i++) {
-        const status = this.children[i].tick();
-        this.currentChildIndex = i;
-        // Return successful or running behaviors
-        if (status !== BehaviorStatus.FAILURE) { return status; }
-      }
-      return BehaviorStatus.FAILURE;
+    for (let i = 0; i < this.children.length; i++) {
+      const status = this.children[i].tick();
+      this.currentChildIndex = i;
+      // Return successful or running behaviors
+      if (status !== BehaviorStatus.FAILURE) { return status; }
     }
-    return BehaviorStatus.ERROR;
+    return BehaviorStatus.FAILURE;
   }
 }

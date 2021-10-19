@@ -61,6 +61,7 @@ export abstract class Behavior {
   protected shouldAbort: boolean = false;
   public abort() {
     this.shouldAbort = true;
+    this.onTerminate();
   }
 
   // Called immediately after previous `update` which signalled the behavior is done processing

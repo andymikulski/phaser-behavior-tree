@@ -11,6 +11,7 @@ export class Selector extends Composite {
     for (let i = this.currentChildIndex; i < this.children.length; i++) {
       if (this.shouldAbort) { return BehaviorStatus.FAILURE; }
       const status = this.children[i].tick();
+      this.currentChildIndex = i;
       // Return successful or running behaviors
       if (status !== BehaviorStatus.FAILURE) {
         this.currentChildIndex = status === BehaviorStatus.RUNNING ? i : 0;
@@ -19,6 +20,15 @@ export class Selector extends Composite {
     }
     this.currentChildIndex = 0;
     return BehaviorStatus.FAILURE;
+  }
+
+  abort() {
+    super.abort();
+    if (this.children[this.currentChildIndex]?.status  === BehaviorStatus.RUNNING) {
+      this.children[this.currentChildIndex].abort();
+    }
+
+    this.onTerminate();
   }
 }
 
@@ -33,9 +43,9 @@ export class ActiveSelector extends Selector {
     const result = super.update();
 
     // Compare previous child with current and go from there
-    const current = this.children[this.currentChildIndex];
-    const last = this.children[this.children.length - 1];
-    if (prevIndex !== this.currentChildIndex && (previous && previous !== last && current !== previous)) {
+    // const current = this.children[this.currentChildIndex];
+    // const last = this.children[this.children.length - 1];
+    if (prevIndex !== this.currentChildIndex && previous) {
       // Abort last behavior if current child has changed
       if (previous.status === BehaviorStatus.RUNNING) {
         previous.abort();
