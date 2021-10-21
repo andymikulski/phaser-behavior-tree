@@ -86,7 +86,7 @@ export class MainGameScene extends Phaser.Scene {
 
     for (let i = 0; i < 1; i++) {
       // continue;
-      const enemy = new Enemy(this, Math.random() * this.scale.width, Math.random() * this.scale.height, player).setDisplaySize(32, 32).setDepth(10);
+      const enemy = new Enemy(this, Math.random() * this.scale.width, Math.random() * this.scale.height, player, this.aiBlackboard).setDisplaySize(32, 32).setDepth(10);
       this.physics.add.existing(enemy).setCollideWorldBounds(true).setMaxVelocity(75, 75).setImmovable(false).setPushable(true);
       this.enemies.push(enemy);
       this.npcList.push(enemy);

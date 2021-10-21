@@ -1,9 +1,12 @@
 import Phaser from 'phaser';
-import { BehaviorTree } from './BehaviorTree';
+import { BehaviorStatus, BehaviorTree } from './BehaviorTree';
 import { FreshSequence, Sequence } from "./Sequence";
 import { ActiveSelector, Selector } from "./Selector";
 import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand } from './main';
 import { SpawnSimpleProjectile } from './Projectile';
+import { GenericAction, getClosestFood, HasFoodNearby } from './Chicken';
+import Blackboard from './Blackboard';
+import { TomatoCrop } from './TomatoCrop';
 
 export class Enemy extends Phaser.Physics.Arcade.Image {
   inventory: Item[] = [];
@@ -22,7 +25,7 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
   emote: Phaser.GameObjects.Image;
   emoteBg: Phaser.GameObjects.Image;
   ai: BehaviorTree;
-  constructor(scene: Phaser.Scene, x: number, y: number, player: LocalPlayer) {
+  constructor(scene: Phaser.Scene, x: number, y: number, player: LocalPlayer, private blackboard:Blackboard) {
     super(scene, x, y, 'mario');
 
 
@@ -51,34 +54,74 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
           new Inverter(new CheckAmmoLevel(this, 1)),
 
 
-          // Set visual indicator
-          new SetEmote(this, 'drops'),
-          new LoggingAction('\tEnemy: Need to reload!'),
 
-          // Reload
-          new Selector([
-            // Check if it's safe to reload (or move away from the player if too close)
-            new Sequence([
-              new IsTargetWithinDistance(this.body?.position ?? this, player.body, 160),
-              new SetEmote(this, 'alert'),
-              new LoggingAction('\tEnemy: Player is too close, running away first!'),
-              new AccelerateAwayFromPosition(this, player, 200)
-            ]),
-            // Actually reload weapon
-            new Sequence([
-              new LoggingAction('\tEnemy: Reloading!'),
-              new WaitMillisecondsAction(500),
-              new SetAmmo(this, 3),
-              new LoggingAction('\tEnemy: I have ammo!'),
-            ])
-          ])
+          new HasFoodNearby(this.blackboard, this.body?.position ?? this, 200),
+          new SetEmote(this, 'exclamation'),
+          new LinearMotionTowardsPosition(this, () => {
+            return getClosestFood(this.blackboard, this.body?.position ?? this, 200);
+          }, 10, 100, true),
+          // new LoggingAction('Chicken: Reached the food!'),
+          new WaitMillisecondsAction(1000),
+          new GenericAction(()=>{
+            const closestFood = getClosestFood(this.blackboard, this.body?.position ?? this, 10) as TomatoCrop|null;
+            if (!closestFood){ return BehaviorStatus.FAILURE; }
+            // Reset tomato plant
+            closestFood.ai.enabled = false;
+            closestFood.growthStage = 0;
+            closestFood.avatar.setTexture('env', 'TomatoSeeds');
+
+            // This is bad, the plant itself should be responsible for handling being eaten
+            this.blackboard.removeObjectTags(['food'], closestFood);
+            setTimeout(()=>{
+              closestFood.ai.enabled = true;
+            }, 5000);
+            return BehaviorStatus.SUCCESS;
+          }),
+          new SetEmote(this, 'faceHappy'),
+          // new LoggingAction('Chicken: FOOD ANNIHIALIATED'),
+          new SetAmmo(this, 3),
+          new WaitMillisecondsAction(250),
+
+
+
+
+
+          // // Set visual indicator
+          // new SetEmote(this, 'drops'),
+          // new LoggingAction('\tEnemy: Need to reload!'),
+
+          // // Reload
+          // new Selector([
+          //   // Check if it's safe to reload (or move away from the player if too close)
+          //   new Sequence([
+          //     new IsTargetWithinDistance(this.body?.position ?? this, player.body, 160),
+          //     new SetEmote(this, 'alert'),
+          //     new LoggingAction('\tEnemy: Player is too close, running away first!'),
+          //     new AccelerateAwayFromPosition(this, player, 200)
+          //   ]),
+          //   // Actually reload weapon
+          //   new Sequence([
+          //     new LoggingAction('\tEnemy: Reloading!'),
+          //     new WaitMillisecondsAction(500),
+          //     new SetAmmo(this, 3),
+          //     new LoggingAction('\tEnemy: I have ammo!'),
+          //   ])
+          // ])
         ]),
 
         // Is a player nearby? If so run towards them so they are within attacking range
-        new Sequence([
-          new LoggingAction('\tEnemy: Do I see an enemy?'),
+        new FreshSequence([
           new IsTargetWithinDistance(this.body?.position ?? this, player.body, 300),
+          new Inverter(new CheckAmmoLevel(this, 1)),
+          new SetEmote(this, 'exclamation'),
+          new AccelerateAwayFromPosition(this, player.body, 200),
+          new LoggingAction('\t\tEnemy: I dont have ammo!'),
+          new SetEmote(this, 'faceSad'),
+          new WaitMillisecondsAction(500),
+        ]),
 
+        new FreshSequence([
+          new IsTargetWithinDistance(this.body?.position ?? this, player.body, 300),
           new LoggingAction('\t\tEnemy: I see the player!'),
           new SetEmote(this, 'exclamation'),
           new LinearMotionTowardsPosition(this, player.body, 150),

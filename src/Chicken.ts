@@ -6,7 +6,7 @@ import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, Acc
 import Blackboard from './Blackboard';
 import { ResetGrowthStage, TomatoCrop } from './TomatoCrop';
 
-class HasFoodNearby extends Condition {
+export class HasFoodNearby extends Condition {
   constructor(private blackboard: Blackboard, private position: { x: number, y: number }, private maxDistance: number) { super(); }
   update() {
     const food = this.blackboard.getTagged('food') as Phaser.GameObjects.Components.Transform[];
@@ -23,7 +23,7 @@ class HasFoodNearby extends Condition {
   }
 }
 
-const getClosestFood = (blackboard: Blackboard, position: { x: number, y: number }, maxDistance: number):null|Phaser.GameObjects.Components.Transform => {
+export const getClosestFood = (blackboard: Blackboard, position: { x: number, y: number }, maxDistance: number):null|Phaser.GameObjects.Components.Transform => {
   const food = blackboard.getTagged('food') as Phaser.GameObjects.Components.Transform[];
   if (!food.length) { return null; }
 
