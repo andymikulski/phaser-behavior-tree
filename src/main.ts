@@ -3,17 +3,13 @@ import Phaser from 'phaser';
 import { Action, BehaviorStatus, BehaviorTree, Condition, Decorator } from './BehaviorTree';
 import { Sequence } from "./Sequence";
 import throttle from './throttle';
-import { Enemy } from './Enemy';
 import { Food } from './Food';
-import { Chicken } from './Chicken';
+import { MainGameScene } from './MainGameScene';
 
 
 export const rand = () => (Math.random() + Math.random() + Math.random()) / 3;
 
-// import SpritesheetStuff from './asset/sprites.json';
-// const itemNames = SpritesheetStuff.textures[0].frames.map(y => y.filename);
-
-new Phaser.Game({
+const game = new Phaser.Game({
   width: 1024,
   height: 768,
   backgroundColor: 0xa1e064,
@@ -34,105 +30,14 @@ new Phaser.Game({
     }
   },
 
-  scene: class extends Phaser.Scene {
-    private npcList: {ai:BehaviorTree}[] = [];
-    private enemies: Enemy[] = [];
-    private food: Food[] = [];
-    private player: LocalPlayer;
-
-    preload = () => {
-      this.load.atlas('sprites', 'asset/sprites.png', 'asset/sprites.json');
-      this.load.image('mario', 'https://i.imgur.com/nKgMvuj.png');
-      this.load.image('background', 'https://i.imgur.com/dzpw15B.jpg');
-
-      this.load.atlas('env', 'asset/env.png', 'asset/env.json');
-      this.load.atlas('bubbles', 'asset/bubbles.png', 'asset/bubbles.json');
-    }
-
-    createEnv = () => {
-      for (let i = 0; i < 12; i++) {
-        const img = this.add.image(Math.random() * this.scale.width, Math.random() * this.scale.height, 'env', 'Tree').setScale(3);
-        img.setDepth(img.y + (img.height * 0.75));
-      }
-    }
-
-    create = () => {
-
-      this.anims.create({
-        key: 'ChickenAnim',
-        frames: this.anims.generateFrameNames('Chicken-', {
-          prefix: '',
-          start: 0,
-          end: 4,
-          suffix: '',
-          zeroPad: 0,
-        }),
-        duration: 1000 / 7,
-        repeat: -1,
-      });
-
-      this.createEnv();
-
-      this.input.mouse.disableContextMenu();
-      this.physics.world.setBounds(0, 0, 1024, 768);
-
-
-      // const bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(1024, 768).setDepth(-1).setAlpha(0.3);
-
-      const lp = new LocalPlayer(this, 128, 128);
-      const player = this.physics.add.existing(lp).setDisplaySize(32, 32).setCollideWorldBounds(true).setMaxVelocity(100, 100);
-      this.player = player;
-
-
-      (player.body as Phaser.Physics.Arcade.Body).syncBounds = true;
-
-
-      for (let i = 0; i < 250; i++) {
-        const chicken = new Chicken(this, Math.random() * this.scale.width, Math.random() * this.scale.height, player);
-        chicken.setDisplaySize(32,32,).setDepth(10);
-        this.physics.add.existing(chicken).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);
-        this.npcList.push(chicken);
-      }
-
-      for (let i = 0; i < 1; i++) {
-        continue;
-        const enemy = new Enemy(this, Math.random() * this.scale.width, Math.random() * this.scale.height, player).setDisplaySize(32, 32).setDepth(10);
-
-
-        this.physics.add.existing(enemy).setCollideWorldBounds(true).setMaxVelocity(75, 75).setImmovable(false).setPushable(true);
-        this.enemies.push(enemy);
-        // this.npcList.push(enemy);
-        // (enemy.body as Phaser.Physics.Arcade.Body).syncBounds = true;
-      }
-
-      // const collisionGroup = this.physics.add.group(this.enemies);
-      // collisionGroup.add(player);
-
-      // this.physics.add.collider(collisionGroup, collisionGroup);
-
-      this.time.addEvent({
-        loop: true,
-        callback: this.updateAI,
-      });
-      this.time.addEvent({
-        loop: true,
-        callback: this.updateLocalAgent,
-      });
-
-      (window as any).step = this.updateAI;
-    }
-
-    updateLocalAgent = throttle(() => {
-      this.player.ai?.tick();
-    }, 1000 / 30); // 30fps
-
-    updateAI = throttle(() => {
-      for (let i = 0; i < this.npcList.length; i++) {
-        this.npcList[i].ai.tick();
-      }
-    }, 1000 / 10); // 10fps - increasing this speed makes them appear smarter
-  }
+  scene: MainGameScene
 });
+
+
+
+export function getMainScene() {
+  return game.scene.getScene('MainGame') as MainGameScene;
+}
 
 
 class Idle extends Action {
@@ -212,7 +117,7 @@ export class SetAmmo extends Action {
 export class LinearMotionTowardsPosition extends Action {
   private targetX: number;
   private targetY: number;
-  constructor(private self: Phaser.Physics.Arcade.Image, private target: { x: number; y: number; } | (() => { x: number; y: number; }), private distThreshold: number = 5, private speed:number = 150) {
+  constructor(private self: Phaser.Physics.Arcade.Image, private target: { x: number; y: number; } | (() => { x: number; y: number; }), private distThreshold: number = 5, private speed: number = 150, private updatePositionEveryTick?:boolean) {
     super();
 
     this.calcTargetXY();
@@ -223,8 +128,13 @@ export class LinearMotionTowardsPosition extends Action {
 
     if (typeof this.target === 'function') {
       const res = this.target();
-      targetX = res.x;
-      targetY = res.y;
+      if (!res) {
+        targetX = NaN;
+        targetY = NaN;
+      } else {
+        targetX = res.x;
+        targetY = res.y;
+      }
     } else {
       targetX = this.target.x;
       targetY = this.target.y;
@@ -241,6 +151,11 @@ export class LinearMotionTowardsPosition extends Action {
   }
 
   update() {
+    if (this.updatePositionEveryTick){ this.calcTargetXY(); }
+    if (isNaN(this.targetX) || isNaN(this.targetY)) {
+      return BehaviorStatus.FAILURE;
+    }
+
     const dist = Phaser.Math.Distance.Between(
       this.self.body.x, this.self.body.y,
       this.targetX, this.targetY,
@@ -262,8 +177,53 @@ export class LinearMotionTowardsPosition extends Action {
 };
 
 
+export class LinearMotionTowardsDirection extends Action {
+  private currentAngle:number = 0;
+
+  constructor(private self: Phaser.Physics.Arcade.Image, private givenAngle: number | (() => number), private speed: number = 150) {
+    super();
+
+    this.updateAngle();
+  }
+
+  private updateAngle() {
+    this.currentAngle = typeof this.givenAngle === 'function' ? this.givenAngle() : this.givenAngle;
+  }
+
+  onInitialize() {
+    super.onInitialize();
+    this.self.setMaxVelocity(this.speed, this.speed);
+    this.updateAngle();
+  }
+
+  update() {
+    if (isNaN(this.currentAngle)) {
+      return BehaviorStatus.FAILURE;
+    }
+    this.self.body.velocity.set(Math.cos(this.currentAngle) * this.speed, Math.sin(this.currentAngle) * this.speed);
+    return BehaviorStatus.RUNNING;
+  }
+
+  onTerminate() {
+    super.onTerminate();
+    this.self.body.velocity.set(0, 0);
+  }
+};
+
+export class SetAnimationSpeed extends Action {
+  constructor(private self: Phaser.GameObjects.Sprite, private amt: number) {
+    super();
+  }
+
+  update() {
+    this.self.anims.timeScale = this.amt;
+    return BehaviorStatus.SUCCESS;
+  }
+}
+
+
 export class AccelerateAwayFromPosition extends Action {
-  constructor(private self: Phaser.Physics.Arcade.Image, private target: { x: number; y: number; }, private targetDist: number = 100, private speed:number = 125) {
+  constructor(private self: Phaser.Physics.Arcade.Image, private target: { x: number; y: number; }, private targetDist: number = 100, private speed: number = 125) {
     super();
   }
   update() {
@@ -382,8 +342,8 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
         // this.ai.abort();
         this.ai = normalMoveTree({ x: pointer.worldX, y: pointer.worldY });
       } //else if (pointer.leftButtonDown()) {
-        // this.ai.abort();
-        // this.ai = aMoveTree({ x: pointer.worldX, y: pointer.worldY });
+      // this.ai.abort();
+      // this.ai = aMoveTree({ x: pointer.worldX, y: pointer.worldY });
       // }
     }, 1000 / 30);
 
@@ -395,6 +355,7 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
     this.scene.physics.world.on('worldstep', () => {
       this.avatar.x = this.body.x;
       this.avatar.y = this.body.y;
+      this.avatar.setDepth(this.avatar.y + (this.avatar.height * 0.75));
 
       let wasFlipped = this.avatar.flipX;
       if (this.body.velocity.x === 0) {
@@ -410,21 +371,24 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
 export class LoggingAction extends Action {
   constructor(private message: string | (() => string), private returnStatus: BehaviorStatus = BehaviorStatus.SUCCESS) { super(); }
   update() {
-    // console.log('LoggingAction : ', typeof this.message === 'function' ? this.message() : this.message);
+    console.log('LoggingAction : ', typeof this.message === 'function' ? this.message() : this.message);
     return this.returnStatus;
   }
 }
 
 export class WaitMillisecondsAction extends Action {
-  constructor(private waitForMS: number) { super(); }
+  constructor(private waitForMS: number | (() => number)) { super(); }
 
+  private waitThreshold: number;
   private startTime: number;
   onInitialize() {
     this.startTime = Date.now();
+    this.waitThreshold = typeof this.waitForMS === 'function' ? this.waitForMS() : this.waitForMS;
   }
   update() {
     const now = Date.now();
-    if (now - this.startTime < this.waitForMS) {
+
+    if (now - this.startTime < this.waitThreshold) {
       return BehaviorStatus.RUNNING;
     }
     return BehaviorStatus.SUCCESS;
@@ -459,3 +423,4 @@ export class Inverter extends Decorator {
 }
 
 export class Item extends Phaser.Physics.Arcade.Image { }
+

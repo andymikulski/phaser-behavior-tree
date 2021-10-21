@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import { BehaviorTree } from './BehaviorTree';
-import { Sequence } from "./Sequence";
+import { FreshSequence, Sequence } from "./Sequence";
 import { ActiveSelector, Selector } from "./Selector";
 import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand } from './main';
+import { SpawnSimpleProjectile } from './Projectile';
 
 export class Enemy extends Phaser.Physics.Arcade.Image {
   inventory: Item[] = [];
@@ -24,16 +25,18 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene, x: number, y: number, player: LocalPlayer) {
     super(scene, x, y, 'mario');
 
+
     this.ammoDisplay = scene.add.text(0, 0, 'Ammo: ' + this.ammo, { color: '#000', backgroundColor: 'rgba(255,255,255,0.3)' }).setDepth(10);
 
     this.emoteBg = scene.add.image(0, 0, 'bubbles', 'round_speech_bubble').setDepth(1).setScale(3);
     this.emote = scene.add.image(0, 0, 'bubbles', 'faceHappy').setDepth(2).setScale(3);
     this.avatar = scene.add.image(0, 0, 'mario').setDepth(2).setDisplaySize(32, 32).setOrigin(0, 0);
+    this.avatar.setTint(0xff0000);
 
     this.ai = new BehaviorTree(
       new ActiveSelector([
         // Melee danger check
-        new Sequence([
+        new FreshSequence([
           new LoggingAction('\tEnemy: Is player within melee range?'),
           // If player is in melee range, bail
           new IsTargetWithinDistance(this.body?.position ?? this, player.body, 75),
@@ -43,7 +46,7 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
         ]),
 
         // Reload!
-        new Sequence([
+        new FreshSequence([
           new LoggingAction(() => '\tEnemy: Do I need to reload? ' + this.ammo),
           new Inverter(new CheckAmmoLevel(this, 1)),
 
@@ -83,12 +86,14 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
           new SetEmote(this, 'faceAngry'),
           new WaitMillisecondsAction(500),
           new LoggingAction(() => '\t\tEnemy: ATTACK! ' + this.ammo),
-          new AdjustHealth(player, -10),
+          new SpawnSimpleProjectile(this.scene, this.body?.position ?? this, player.body),
           new AdjustAmmoAction(this, -1),
+          new WaitMillisecondsAction(500),
+          // new AdjustHealth(player, -10),
         ]),
 
         // Idle
-        new Sequence([
+        new FreshSequence([
           new SetEmote(this, 'faceHappy'),
           new LoggingAction('\tEnemy: Idling..'),
           new WaitMillisecondsAction(500),
