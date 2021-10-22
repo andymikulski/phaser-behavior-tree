@@ -1,12 +1,21 @@
 import Phaser from 'phaser';
-import { BehaviorStatus, BehaviorTree } from './BehaviorTree';
+import { BehaviorStatus, BehaviorTree, Decorator } from './BehaviorTree';
 import { FreshSequence, Sequence } from "./Sequence";
 import { ActiveSelector, Selector } from "./Selector";
 import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand } from './main';
-import { SpawnSimpleProjectile } from './Projectile';
+import { SpawnProjectileBurst, SpawnSimpleProjectile } from './Projectile';
 import { GenericAction, getClosestFood, HasFoodNearby } from './Chicken';
 import Blackboard from './Blackboard';
-import { TomatoCrop } from './TomatoCrop';
+import { Throttle, TomatoCrop } from './TomatoCrop';
+
+
+export class Falsy extends Decorator {
+  update() {
+    const status = this.child.tick();
+    return status === BehaviorStatus.SUCCESS ? BehaviorStatus.SUCCESS : BehaviorStatus.FAILURE;
+  }
+}
+
 
 export class Enemy extends Phaser.Physics.Arcade.Image {
   inventory: Item[] = [];
@@ -25,7 +34,7 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
   emote: Phaser.GameObjects.Image;
   emoteBg: Phaser.GameObjects.Image;
   ai: BehaviorTree;
-  constructor(scene: Phaser.Scene, x: number, y: number, player: LocalPlayer, private blackboard:Blackboard) {
+  constructor(scene: Phaser.Scene, x: number, y: number, player: LocalPlayer, private blackboard: Blackboard) {
     super(scene, x, y, 'mario');
 
 
@@ -38,6 +47,8 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
 
     this.ai = new BehaviorTree(
       new ActiveSelector([
+
+
         // Melee danger check
         new FreshSequence([
           new LoggingAction('\tEnemy: Is player within melee range?'),
@@ -48,13 +59,17 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
           new AccelerateAwayFromPosition(this, player, 125)
         ]),
 
+
+        new Falsy(new Throttle(
+          1_000,
+          new SpawnProjectileBurst(this.scene, this.body?.position ?? this, 32),
+        )),
+
+
         // Reload!
         new FreshSequence([
           new LoggingAction(() => '\tEnemy: Do I need to reload? ' + this.ammo),
           new Inverter(new CheckAmmoLevel(this, 1)),
-
-
-
           new HasFoodNearby(this.blackboard, this.body?.position ?? this, 200),
           new SetEmote(this, 'exclamation'),
           new LinearMotionTowardsPosition(this, () => {
@@ -62,9 +77,9 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
           }, 10, 100, true),
           // new LoggingAction('Chicken: Reached the food!'),
           new WaitMillisecondsAction(1000),
-          new GenericAction(()=>{
-            const closestFood = getClosestFood(this.blackboard, this.body?.position ?? this, 10) as TomatoCrop|null;
-            if (!closestFood){ return BehaviorStatus.FAILURE; }
+          new GenericAction(() => {
+            const closestFood = getClosestFood(this.blackboard, this.body?.position ?? this, 10) as TomatoCrop | null;
+            if (!closestFood) { return BehaviorStatus.FAILURE; }
             // Reset tomato plant
             closestFood.ai.enabled = false;
             closestFood.growthStage = 0;
@@ -72,7 +87,7 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
 
             // This is bad, the plant itself should be responsible for handling being eaten
             this.blackboard.removeObjectTags(['food'], closestFood);
-            setTimeout(()=>{
+            setTimeout(() => {
               closestFood.ai.enabled = true;
             }, 5000);
             return BehaviorStatus.SUCCESS;
@@ -81,10 +96,6 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
           // new LoggingAction('Chicken: FOOD ANNIHIALIATED'),
           new SetAmmo(this, 3),
           new WaitMillisecondsAction(250),
-
-
-
-
 
           // // Set visual indicator
           // new SetEmote(this, 'drops'),

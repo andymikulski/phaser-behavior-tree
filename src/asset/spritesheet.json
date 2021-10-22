@@ -1,0 +1,3716 @@
+{
+	"textures": [
+		{
+			"image": "spritesheet.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 128,
+				"h": 1213
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "House11",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 113,
+						"h": 102
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 113,
+						"h": 102
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 113,
+						"h": 102
+					}
+				},
+				{
+					"filename": "Streetlight-Off",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 11,
+						"h": 43
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 11,
+						"h": 43
+					},
+					"frame": {
+						"x": 116,
+						"y": 1,
+						"w": 11,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Streetlight-On",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 11,
+						"h": 43
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 11,
+						"h": 43
+					},
+					"frame": {
+						"x": 116,
+						"y": 46,
+						"w": 11,
+						"h": 43
+					}
+				},
+				{
+					"filename": "TomatoPlant-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 11,
+						"h": 10
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 11,
+						"h": 10
+					},
+					"frame": {
+						"x": 116,
+						"y": 91,
+						"w": 11,
+						"h": 10
+					}
+				},
+				{
+					"filename": "Potato",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 11,
+						"h": 9
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 11,
+						"h": 9
+					},
+					"frame": {
+						"x": 116,
+						"y": 103,
+						"w": 11,
+						"h": 9
+					}
+				},
+				{
+					"filename": "House7",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 67
+					},
+					"frame": {
+						"x": 1,
+						"y": 105,
+						"w": 77,
+						"h": 67
+					}
+				},
+				{
+					"filename": "Alchemist_idle-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 80,
+						"y": 105,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_idle-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 80,
+						"y": 105,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "PotatoBag",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 14
+					},
+					"frame": {
+						"x": 114,
+						"y": 114,
+						"w": 12,
+						"h": 14
+					}
+				},
+				{
+					"filename": "TomatoBag",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 14
+					},
+					"frame": {
+						"x": 114,
+						"y": 130,
+						"w": 12,
+						"h": 14
+					}
+				},
+				{
+					"filename": "Chicken-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 12
+					},
+					"frame": {
+						"x": 114,
+						"y": 146,
+						"w": 12,
+						"h": 12
+					}
+				},
+				{
+					"filename": "Chicken-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 12
+					},
+					"frame": {
+						"x": 114,
+						"y": 146,
+						"w": 12,
+						"h": 12
+					}
+				},
+				{
+					"filename": "Alchemist_idle-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 80,
+						"y": 150,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_idle-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 80,
+						"y": 150,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "House2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 174,
+						"w": 77,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Chicken-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 12
+					},
+					"frame": {
+						"x": 114,
+						"y": 160,
+						"w": 12,
+						"h": 12
+					}
+				},
+				{
+					"filename": "Chicken-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 12
+					},
+					"frame": {
+						"x": 114,
+						"y": 174,
+						"w": 12,
+						"h": 12
+					}
+				},
+				{
+					"filename": "PotatoPlant-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 10,
+						"h": 15
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 10,
+						"h": 15
+					},
+					"frame": {
+						"x": 114,
+						"y": 188,
+						"w": 10,
+						"h": 15
+					}
+				},
+				{
+					"filename": "Alchemist_walk-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 80,
+						"y": 195,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "PotatoPlant-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 9,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 9,
+						"h": 14
+					},
+					"frame": {
+						"x": 114,
+						"y": 205,
+						"w": 9,
+						"h": 14
+					}
+				},
+				{
+					"filename": "PotatoPlant-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 9,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 9,
+						"h": 11
+					},
+					"frame": {
+						"x": 114,
+						"y": 221,
+						"w": 9,
+						"h": 11
+					}
+				},
+				{
+					"filename": "PotatoSeeds",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 9,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 9,
+						"h": 11
+					},
+					"frame": {
+						"x": 114,
+						"y": 234,
+						"w": 9,
+						"h": 11
+					}
+				},
+				{
+					"filename": "House4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 77,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 9,
+						"w": 73,
+						"h": 56
+					},
+					"frame": {
+						"x": 1,
+						"y": 240,
+						"w": 73,
+						"h": 56
+					}
+				},
+				{
+					"filename": "Alchemist_walk-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 76,
+						"y": 240,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Bush1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 247,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-0",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 265,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-20",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 265,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 283,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-16",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 283,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Alchemist_walk-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 76,
+						"y": 285,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "House10",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 61
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 61
+					},
+					"frame": {
+						"x": 1,
+						"y": 298,
+						"w": 72,
+						"h": 61
+					}
+				},
+				{
+					"filename": "Tiles-10",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 301,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-33",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 301,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-11",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 319,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-28",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 110,
+						"y": 319,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Alchemist_walk-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 32,
+						"h": 43
+					},
+					"frame": {
+						"x": 75,
+						"y": 330,
+						"w": 32,
+						"h": 43
+					}
+				},
+				{
+					"filename": "House5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 72,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 72,
+						"h": 54
+					},
+					"frame": {
+						"x": 1,
+						"y": 361,
+						"w": 72,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Tiles-12",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 337,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-26",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 337,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-13",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 355,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-17",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 355,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-14",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 373,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-25",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 373,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Alchemist_idle-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 75,
+						"y": 375,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_idle-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 75,
+						"y": 375,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "House6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 70,
+						"h": 74
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 70,
+						"h": 74
+					},
+					"frame": {
+						"x": 1,
+						"y": 417,
+						"w": 70,
+						"h": 74
+					}
+				},
+				{
+					"filename": "Tiles-15",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 391,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-24",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 391,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-18",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 409,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-9",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 109,
+						"y": 409,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Alchemist_idle-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 73,
+						"y": 418,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_idle-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 73,
+						"y": 418,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Tiles-19",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 427,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 427,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 445,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-29",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 445,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Alchemist_walk-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 73,
+						"y": 461,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_walk-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 73,
+						"y": 461,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "House9",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 77
+					},
+					"frame": {
+						"x": 1,
+						"y": 493,
+						"w": 68,
+						"h": 77
+					}
+				},
+				{
+					"filename": "Tiles-21",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 463,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-31",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 463,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-22",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 481,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-30",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 481,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-23",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 499,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-32",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 107,
+						"y": 499,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Alchemist_walk-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 71,
+						"y": 504,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_walk-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 32,
+						"h": 41
+					},
+					"frame": {
+						"x": 71,
+						"y": 504,
+						"w": 32,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 15,
+						"w": 22,
+						"h": 33
+					},
+					"frame": {
+						"x": 105,
+						"y": 517,
+						"w": 22,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Tree1-Shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 38
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 71,
+						"y": 547,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "House8",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 76
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 76
+					},
+					"frame": {
+						"x": 1,
+						"y": 572,
+						"w": 68,
+						"h": 76
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 15,
+						"w": 22,
+						"h": 33
+					},
+					"frame": {
+						"x": 105,
+						"y": 552,
+						"w": 22,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Tree1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 32
+					},
+					"frame": {
+						"x": 71,
+						"y": 587,
+						"w": 32,
+						"h": 32
+					}
+				},
+				{
+					"filename": "Tiles-27",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 105,
+						"y": 587,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 105,
+						"y": 587,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tiles-5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 105,
+						"y": 605,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tree",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 31
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 31
+					},
+					"frame": {
+						"x": 71,
+						"y": 621,
+						"w": 32,
+						"h": 31
+					}
+				},
+				{
+					"filename": "House3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 66,
+						"h": 71
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 66,
+						"h": 71
+					},
+					"frame": {
+						"x": 1,
+						"y": 650,
+						"w": 66,
+						"h": 71
+					}
+				},
+				{
+					"filename": "House1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 67
+					},
+					"frame": {
+						"x": 69,
+						"y": 654,
+						"w": 58,
+						"h": 67
+					}
+				},
+				{
+					"filename": "Tiles-6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 105,
+						"y": 623,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tomato",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 9,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 9,
+						"h": 11
+					},
+					"frame": {
+						"x": 105,
+						"y": 641,
+						"w": 9,
+						"h": 11
+					}
+				},
+				{
+					"filename": "TomatoSeeds",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 8,
+						"h": 9
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 8,
+						"h": 9
+					},
+					"frame": {
+						"x": 116,
+						"y": 641,
+						"w": 8,
+						"h": 9
+					}
+				},
+				{
+					"filename": "Alchemist_idle-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 723,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_idle-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 723,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_idle-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 34,
+						"y": 723,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_idle-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 34,
+						"y": 723,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_walk-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 67,
+						"y": 723,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Farmer_idle-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 723,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 723,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 723,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 723,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 766,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 766,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_walk-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 1,
+						"y": 768,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_walk-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 34,
+						"y": 768,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Alchemist_walk-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 5,
+						"w": 31,
+						"h": 43
+					},
+					"frame": {
+						"x": 67,
+						"y": 768,
+						"w": 31,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Farmer_idle-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 809,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 809,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 809,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 809,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_idle-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 813,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_idle-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 813,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_idle-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 34,
+						"y": 813,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_idle-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 34,
+						"y": 813,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_walk-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 67,
+						"y": 813,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_walk-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 67,
+						"y": 813,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 852,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 100,
+						"y": 852,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_walk-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 856,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Alchemist_walk-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 7,
+						"w": 31,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 856,
+						"w": 31,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Tree2-Shadow",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 31,
+						"h": 37
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 31,
+						"h": 37
+					},
+					"frame": {
+						"x": 34,
+						"y": 856,
+						"w": 31,
+						"h": 37
+					}
+				},
+				{
+					"filename": "Tree2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 31,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 31,
+						"h": 32
+					},
+					"frame": {
+						"x": 67,
+						"y": 856,
+						"w": 31,
+						"h": 32
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 15,
+						"w": 29,
+						"h": 33
+					},
+					"frame": {
+						"x": 67,
+						"y": 890,
+						"w": 29,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 15,
+						"w": 29,
+						"h": 33
+					},
+					"frame": {
+						"x": 67,
+						"y": 890,
+						"w": 29,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 15,
+						"w": 29,
+						"h": 33
+					},
+					"frame": {
+						"x": 98,
+						"y": 895,
+						"w": 29,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 15,
+						"w": 29,
+						"h": 33
+					},
+					"frame": {
+						"x": 98,
+						"y": 895,
+						"w": 29,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 34,
+						"y": 895,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 34,
+						"y": 895,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 65,
+						"y": 925,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 65,
+						"y": 925,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 96,
+						"y": 930,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 96,
+						"y": 930,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 1,
+						"y": 899,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 17,
+						"w": 29,
+						"h": 31
+					},
+					"frame": {
+						"x": 1,
+						"y": 899,
+						"w": 29,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Farmer_idle-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 32,
+						"y": 928,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 32,
+						"y": 928,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 932,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 932,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 62,
+						"y": 958,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 62,
+						"y": 958,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 31,
+						"y": 971,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_idle-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 31,
+						"y": 971,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 975,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 975,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 92,
+						"y": 963,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 28,
+						"h": 41
+					},
+					"frame": {
+						"x": 92,
+						"y": 963,
+						"w": 28,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 61,
+						"y": 1001,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 31,
+						"y": 1014,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 1018,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 89,
+						"y": 1006,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Tiles-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 6,
+						"w": 9,
+						"h": 5
+					},
+					"frame": {
+						"x": 117,
+						"y": 1006,
+						"w": 9,
+						"h": 5
+					}
+				},
+				{
+					"filename": "Farmer_walk-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 59,
+						"y": 1044,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 29,
+						"y": 1057,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Farmer_walk-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 1,
+						"y": 1061,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "PotatoPlant-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 7,
+						"h": 7
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 7,
+						"h": 7
+					},
+					"frame": {
+						"x": 117,
+						"y": 1013,
+						"w": 7,
+						"h": 7
+					}
+				},
+				{
+					"filename": "TomatoPlant-1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 7,
+						"h": 7
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 7,
+						"h": 7
+					},
+					"frame": {
+						"x": 117,
+						"y": 1022,
+						"w": 7,
+						"h": 7
+					}
+				},
+				{
+					"filename": "Farmer_walk-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 26,
+						"h": 41
+					},
+					"frame": {
+						"x": 87,
+						"y": 1049,
+						"w": 26,
+						"h": 41
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 15,
+						"w": 26,
+						"h": 33
+					},
+					"frame": {
+						"x": 57,
+						"y": 1087,
+						"w": 26,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 15,
+						"w": 26,
+						"h": 33
+					},
+					"frame": {
+						"x": 29,
+						"y": 1100,
+						"w": 26,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 15,
+						"w": 26,
+						"h": 33
+					},
+					"frame": {
+						"x": 1,
+						"y": 1104,
+						"w": 26,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 15,
+						"w": 26,
+						"h": 33
+					},
+					"frame": {
+						"x": 85,
+						"y": 1092,
+						"w": 26,
+						"h": 33
+					}
+				},
+				{
+					"filename": "TomatoPlant-4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 14,
+						"h": 15
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 14,
+						"h": 15
+					},
+					"frame": {
+						"x": 113,
+						"y": 1092,
+						"w": 14,
+						"h": 15
+					}
+				},
+				{
+					"filename": "Flowers1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 14,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 14,
+						"h": 14
+					},
+					"frame": {
+						"x": 113,
+						"y": 1109,
+						"w": 14,
+						"h": 14
+					}
+				},
+				{
+					"filename": "TomatoPlant-3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 14,
+						"h": 14
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 14,
+						"h": 14
+					},
+					"frame": {
+						"x": 113,
+						"y": 1125,
+						"w": 14,
+						"h": 14
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 15,
+						"w": 25,
+						"h": 33
+					},
+					"frame": {
+						"x": 57,
+						"y": 1122,
+						"w": 25,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 15,
+						"w": 25,
+						"h": 33
+					},
+					"frame": {
+						"x": 57,
+						"y": 1122,
+						"w": 25,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 15,
+						"w": 25,
+						"h": 33
+					},
+					"frame": {
+						"x": 29,
+						"y": 1135,
+						"w": 25,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 15,
+						"w": 25,
+						"h": 33
+					},
+					"frame": {
+						"x": 29,
+						"y": 1135,
+						"w": 25,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 15,
+						"w": 25,
+						"h": 33
+					},
+					"frame": {
+						"x": 1,
+						"y": 1139,
+						"w": 25,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 15,
+						"w": 25,
+						"h": 33
+					},
+					"frame": {
+						"x": 84,
+						"y": 1127,
+						"w": 25,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Tiles-7",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 111,
+						"y": 1141,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Tree1-Stump",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 111,
+						"y": 1159,
+						"w": 16,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 17,
+						"w": 25,
+						"h": 31
+					},
+					"frame": {
+						"x": 56,
+						"y": 1157,
+						"w": 25,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 17,
+						"w": 25,
+						"h": 31
+					},
+					"frame": {
+						"x": 56,
+						"y": 1157,
+						"w": 25,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 25,
+						"h": 31
+					},
+					"frame": {
+						"x": 28,
+						"y": 1170,
+						"w": 25,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_idle-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 17,
+						"w": 25,
+						"h": 31
+					},
+					"frame": {
+						"x": 28,
+						"y": 1170,
+						"w": 25,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 17,
+						"w": 24,
+						"h": 31
+					},
+					"frame": {
+						"x": 1,
+						"y": 1174,
+						"w": 24,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 17,
+						"w": 24,
+						"h": 31
+					},
+					"frame": {
+						"x": 1,
+						"y": 1174,
+						"w": 24,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 17,
+						"w": 24,
+						"h": 31
+					},
+					"frame": {
+						"x": 83,
+						"y": 1162,
+						"w": 24,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Blacksmith_walk-7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 17,
+						"w": 24,
+						"h": 31
+					},
+					"frame": {
+						"x": 83,
+						"y": 1162,
+						"w": 24,
+						"h": 31
+					}
+				},
+				{
+					"filename": "Bush2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 16,
+						"h": 15
+					},
+					"frame": {
+						"x": 109,
+						"y": 1177,
+						"w": 16,
+						"h": 15
+					}
+				},
+				{
+					"filename": "TomatoPlant-5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 15
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 15
+					},
+					"frame": {
+						"x": 109,
+						"y": 1194,
+						"w": 16,
+						"h": 15
+					}
+				},
+				{
+					"filename": "Tree2-Stump",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 14,
+						"h": 9
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 14,
+						"h": 9
+					},
+					"frame": {
+						"x": 27,
+						"y": 1203,
+						"w": 14,
+						"h": 9
+					}
+				},
+				{
+					"filename": "Rock",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 12
+					},
+					"frame": {
+						"x": 55,
+						"y": 1195,
+						"w": 16,
+						"h": 12
+					}
+				},
+				{
+					"filename": "Flower",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 14,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 73,
+						"y": 1195,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "Flowers2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 14,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 73,
+						"y": 1195,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "PotatoPlant-5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 14,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 89,
+						"y": 1195,
+						"w": 14,
+						"h": 12
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:e6a5b8959fe6d44939c3f76753e78e63:28e57a19589e6f49bd919a167121af45:729adc6043343cfda41c447ce8f464d6$"
+	}
+}

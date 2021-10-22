@@ -6,6 +6,8 @@ import { Chicken } from './Chicken';
 import Blackboard from './Blackboard';
 import { TomatoCrop } from './TomatoCrop';
 import { LocalPlayer, rand } from './main';
+import { Woodsman } from './Woodsman';
+import { ActualTree } from './ActualTree';
 
 // import SpritesheetStuff from './asset/sprites.json';
 // const itemNames = SpritesheetStuff.textures[0].frames.map(y => y.filename);
@@ -27,12 +29,12 @@ export class MainGameScene extends Phaser.Scene {
   private player: LocalPlayer;
 
   preload = () => {
-    this.load.atlas('sprites', 'asset/sprites.png', 'asset/sprites.json');
     this.load.image('mario', 'https://i.imgur.com/nKgMvuj.png');
     this.load.image('background', 'https://i.imgur.com/dzpw15B.jpg');
 
     this.load.atlas('env', 'asset/env.png', 'asset/env.json');
     this.load.atlas('bubbles', 'asset/bubbles.png', 'asset/bubbles.json');
+    this.load.atlas('spritesheet', 'asset/spritesheet.png', 'asset/spritesheet.json');
   };
 
   createEnv = () => {
@@ -43,7 +45,7 @@ export class MainGameScene extends Phaser.Scene {
   };
 
   create = () => {
-    this.createEnv();
+    // this.createEnv();
 
     const bg = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'env', 'Tiles-5').setOrigin(0, 0);
 
@@ -74,8 +76,19 @@ export class MainGameScene extends Phaser.Scene {
       this.aiBlackboard.tagObject(['crop'], plant);
     }
 
+    for (let i = 0; i < 5; i++) {
+      const tree = new ActualTree(this, rand() * this.scale.width, rand() * this.scale.height, this.aiBlackboard);
+      // tree.setDisplaySize(32, 32).setDepth(10);
+      this.physics.add.existing(tree).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);
 
-    for (let i = 0; i < 3; i++) {
+      this.aiBlackboard.tagObject(['tree', 'tree:grown'], tree);
+
+      this.npcList.push(tree);
+
+      // this.aiBlackboard.tagObject(['food'], chicken);
+    }
+
+    for (let i = 0; i < 35; i++) {
       const chicken = new Chicken(this, Math.random() * this.scale.width, Math.random() * this.scale.height, player, this.aiBlackboard);
       chicken.setDisplaySize(32, 32).setDepth(10);
       this.physics.add.existing(chicken).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);
@@ -84,7 +97,7 @@ export class MainGameScene extends Phaser.Scene {
       // this.aiBlackboard.tagObject(['food'], chicken);
     }
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 0; i++) {
       // continue;
       const enemy = new Enemy(this, Math.random() * this.scale.width, Math.random() * this.scale.height, player, this.aiBlackboard).setDisplaySize(32, 32).setDepth(10);
       this.physics.add.existing(enemy).setCollideWorldBounds(true).setMaxVelocity(75, 75).setImmovable(false).setPushable(true);
@@ -92,6 +105,20 @@ export class MainGameScene extends Phaser.Scene {
       this.npcList.push(enemy);
       this.aiBlackboard.tagObject(['humanoid'], enemy);
     }
+
+
+
+    for (let i = 0; i < 1; i++) {
+      // continue;
+      const woodsman = new Woodsman(this, Math.random() * this.scale.width, Math.random() * this.scale.height, player, this.aiBlackboard).setDisplaySize(32, 32).setDepth(10);
+
+      this.sys.updateList.add(woodsman);
+
+      this.physics.add.existing(woodsman).setCollideWorldBounds(true).setMaxVelocity(75, 75).setImmovable(false).setPushable(true);
+      this.npcList.push(woodsman);
+      this.aiBlackboard.tagObject(['humanoid'], woodsman);
+    }
+
 
     // const collisionGroup = this.physics.add.group(this.enemies);
     // collisionGroup.add(player);
@@ -107,6 +134,12 @@ export class MainGameScene extends Phaser.Scene {
 
     (window as any).step = this.updateAI;
   };
+
+  update = (time:number, delta:number) => {
+    super.update(time, delta);
+    this.player.setDepth(this.player.y + (this.player.height));
+    this.player.avatar.setDepth(this.player.avatar.y + (this.player.avatar.height));
+  }
 
   updateLocalAgent = throttle(() => {
     this.player.ai?.tick();

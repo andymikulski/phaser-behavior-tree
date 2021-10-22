@@ -2,7 +2,7 @@ import Phaser, { GameObjects } from 'phaser';
 import { Action, BehaviorStatus, BehaviorTree, Condition } from './BehaviorTree';
 import { FreshSequence, Sequence } from "./Sequence";
 import { ActiveSelector, Selector } from "./Selector";
-import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand, IsTargetActivelyMoving, SetAnimationSpeed } from './main';
+import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand, IsTargetActivelyMoving, SetAnimationSpeed, IsTagWithinDistance, AccelerateAwayFromNearestTag } from './main';
 import Blackboard from './Blackboard';
 import { ResetGrowthStage, TomatoCrop } from './TomatoCrop';
 
@@ -84,14 +84,15 @@ export class Chicken extends Phaser.Physics.Arcade.Image {
         new FreshSequence([
           // new LoggingAction('\Chicken: Is player too close?'),
           // If player is too close..
-          new IsTargetWithinDistance(this.body?.position ?? this, player.body, 100),
+          // new IsTargetWithinDistance(this.body?.position ?? this, player.body, 100),
+          new IsTagWithinDistance(this.body?.position ?? this, 'humanoid', 100, this.blackboard),
           // .. and they're moving around..
-          new IsTargetActivelyMoving(player.body as Phaser.Physics.Arcade.Body),
+          // new IsTargetActivelyMoving(player.body as Phaser.Physics.Arcade.Body),
           // Startled! Run away!
           new SetEmote(this, 'alert'),
           // new LoggingAction('\Chicken: Player is too close, bail!'),
           new SetAnimationSpeed(this.avatar, 4),
-          new AccelerateAwayFromPosition(this, player.body, 125, 200),
+          new AccelerateAwayFromNearestTag(this, 'humanoid', 125, 200, this.blackboard),
           new WaitMillisecondsAction(500),
         ]),
 

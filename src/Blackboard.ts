@@ -24,6 +24,7 @@ export default class Blackboard {
     let tag;
     for(let i = 0; i < tags.length; i++){
       tag = tags[i];
+      if (!this.taggedObjects[tag]){ continue; }
       this.taggedObjects[tag] = this.taggedObjects[tag].filter(x => x !== gameObject);
     }
   };

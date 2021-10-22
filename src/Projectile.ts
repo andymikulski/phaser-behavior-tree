@@ -18,22 +18,41 @@ export class SpawnSimpleProjectile extends Action{
   }
 }
 
+export class SpawnProjectileBurst extends Action{
+  constructor(private scene:Phaser.Scene, private from:{x:number; y:number;}, private numBullets:number = 8){
+    super();
+  }
+  update() {
+    let bullets = [];
+    const rotationAmount = (Math.PI*2) / this.numBullets;
+    const offset = Date.now() * 0.0025;
+    for (let i = 0; i < this.numBullets; i++ ){
+      const projectile = new SimpleProjectile(this.scene, 0, 0, offset + (rotationAmount * i));
+      this.scene.add.existing(projectile);
+      this.scene.physics.add.existing(projectile);
+      bullets.push(projectile);
+    }
+    Phaser.Actions.PlaceOnCircle(bullets, new Phaser.Geom.Circle(this.from.x,this.from.y, 4));
+    return BehaviorStatus.SUCCESS;
+  }
+}
+
 
 export class SimpleProjectile extends Phaser.Physics.Arcade.Image {
   ai: BehaviorTree;
-  constructor(scene: Phaser.Scene, x: number, y: number, private target: {x:number; y:number;}) {
+  constructor(scene: Phaser.Scene, x: number, y: number, private target: {x:number; y:number;}|number) {
     super(scene, x, y, 'env', 'Tomato');
 
     this.setDepth(10).setScale(2);
 
-    const angleToTarget = Math.atan2((target.y + 16) - y, (target.x + 16) - x);
-    console.log('got angle', angleToTarget)
+    const angleToTarget = typeof target === 'number' ? target : Math.atan2((target.y + 16) - y, (target.x + 16) - x);
 
     this.ai = new BehaviorTree(
       new Sequence([
         new LinearMotionTowardsDirection(this, angleToTarget, 750),
       ])
     );
+
 
     getMainScene().registerBehavior(this);
 

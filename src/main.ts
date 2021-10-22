@@ -5,6 +5,7 @@ import { Sequence } from "./Sequence";
 import throttle from './throttle';
 import { Food } from './Food';
 import { MainGameScene } from './MainGameScene';
+import Blackboard from './Blackboard';
 
 
 export const rand = () => (Math.random() + Math.random() + Math.random()) / 3;
@@ -18,6 +19,7 @@ const game = new Phaser.Game({
 
   scale: {
     mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
   },
 
   physics: {
@@ -250,6 +252,94 @@ export class AccelerateAwayFromPosition extends Action {
   }
 };
 
+export class AccelerateAwayFromNearestTag extends Action {
+  constructor(private self: Phaser.Physics.Arcade.Image, private tag: string, private targetDist: number = 100, private speed: number = 125, private blackboard:Blackboard) {
+    super();
+  }
+
+  private target:{x:number;y:number}|null = null;
+
+  onInitialize = () => {
+    super.onInitialize();
+    this.self.setMaxVelocity(this.speed, this.speed);
+    this.target = GetClosestTaggedObject(this.blackboard, this.self.body?.position ?? this.self, this.tag);
+
+    console.log('on intiailize accelerate away', this.target);
+  };
+
+  update() {
+    if (!this.target) {
+      return BehaviorStatus.FAILURE;
+    }
+
+    const dist = Phaser.Math.Distance.Between(
+      this.self.body.x, this.self.body.y,
+      this.target.x, this.target.y,
+    );
+    if (dist > this.targetDist) {
+      this.self.body.velocity.set(0, 0);
+      return BehaviorStatus.SUCCESS;
+    } else {
+      const angle = Math.atan2(this.self.body.y - this.target.y, this.self.body.x - this.target.x);
+      this.self.body.velocity.set(Math.cos(angle) * this.speed, Math.sin(angle) * this.speed);
+      return BehaviorStatus.RUNNING;
+    }
+  }
+  onTerminate() {
+    super.onTerminate();
+    this.self.body.velocity.set(0, 0);
+  }
+};
+
+
+
+export const GetClosestTaggedObject = (blackboard:Blackboard, pos:{x:number;y:number;}, tag:string) => {
+  const found = blackboard.getTagged(tag) as any[];
+  if (!found.length){
+    return null;
+  }
+
+  let closest = null;
+  let smallestDist = Infinity;
+  let foundPos;
+  for(let i = 0; i < found.length; i++){
+    foundPos = found[i].body?.position ?? found[i];
+
+    const dist = Phaser.Math.Distance.Between(
+      pos.x, pos.y,
+      foundPos.x, foundPos.y,
+    );
+    if (dist < smallestDist){
+      closest = found[i];
+    }
+  }
+  return closest === null ? closest : (closest.body?.position ?? closest);
+}
+
+export class IsTagWithinDistance extends Condition {
+  constructor(private self: { x: number; y: number; }, private tag: string, private maxDistance: number, private blackboard: Blackboard) {
+    super();
+  }
+
+  update() {
+    const found = this.blackboard.getTagged(this.tag) as Phaser.GameObjects.Components.Transform[];
+    if (!found.length){
+      return BehaviorStatus.FAILURE;
+    }
+
+
+    for(let i = 0; i < found.length; i++){
+      const dist = Phaser.Math.Distance.Between(
+        this.self.x, this.self.y,
+        found[i].x, found[i].y,
+      );
+      return dist <= this.maxDistance ? BehaviorStatus.SUCCESS : BehaviorStatus.FAILURE;
+    }
+
+    return BehaviorStatus.FAILURE;
+  }
+}
+
 
 export class IsTargetWithinDistance extends Condition {
   constructor(private self: { x: number; y: number; }, private target: { x: number; y: number; }, private maxDistance: number) {
@@ -313,6 +403,9 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'mario');
     this.avatar = scene.add.image(0, 0, 'mario').setDepth(2).setDisplaySize(32, 32).setOrigin(0, 0);
+
+
+    this.avatar.setDepth(0);
 
     const aMoveTree = (target: { x: number; y: number }) => new BehaviorTree(
       new Sequence([

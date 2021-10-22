@@ -21,7 +21,7 @@ export class Throttle extends Decorator {
   }
   update() {
     const now = Date.now();
-    return (now - this.lastTime > this.throttleMs) ? BehaviorStatus.FAILURE : this.child.tick();
+    return (now - this.lastTime < this.throttleMs) ? BehaviorStatus.RUNNING : this.child.tick();
   }
 }
 
