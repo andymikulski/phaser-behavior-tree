@@ -18,7 +18,7 @@ const game = new Phaser.Game({
   pixelArt: true,
 
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.RESIZE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
 
@@ -419,7 +419,7 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
 
     const normalMoveTree = (target: { x: number; y: number }) => new BehaviorTree(
       new Sequence([
-        new LinearMotionTowardsPosition(this, target),
+        new LinearMotionTowardsPosition(this, target, 5, 220),
         new GotoBranch(this, idleTree),
       ])
     );

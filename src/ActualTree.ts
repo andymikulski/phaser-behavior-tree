@@ -42,7 +42,8 @@ export class ActualTree extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene, x: number, y: number, private blackboard: Blackboard) {
     super(scene, x, y, 'env', 'Tree');
 
-    this.avatar = scene.add.image(0, 0, 'spritesheet', 'Tree1-Shadow').setDepth(2).setOrigin(0.5, 0.5).setDisplaySize(32, 32).setScale(3);
+    const treeType = Math.ceil(Math.random() * 2);
+    this.avatar = scene.add.image(0, 0, 'spritesheet', 'Tree' +  treeType + '-Shadow').setDepth(2).setOrigin(0.5, 0.5).setDisplaySize(32, 32).setScale(3);
 
     this.avatar.setDepth(this.y + (this.avatar.height * 0.8))
 
@@ -58,7 +59,7 @@ export class ActualTree extends Phaser.Physics.Arcade.Image {
           new IsTreeFullyGrown(this),
           new RemoveObjectTagFromBlackboard(this, this.blackboard, ['tree:stump']),
           new AddObjectTagToBlackboard(this, this.blackboard, ['tree:grown']),
-          new SetTextureAction(this.avatar, 'spritesheet', 'Tree1-Shadow')
+          new SetTextureAction(this.avatar, 'spritesheet', 'Tree' + treeType + '-Shadow')
         ])
       ])
     );

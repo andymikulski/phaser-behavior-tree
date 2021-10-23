@@ -8,6 +8,7 @@ import { GenericAction, getClosestFood, HasFoodNearby } from './Chicken';
 import Blackboard from './Blackboard';
 import { Throttle, TomatoCrop } from './TomatoCrop';
 import { ActualTree } from './ActualTree';
+import PoissonNeighborhood from './NeighborhoodGenerator';
 
 
 export class Falsy extends Decorator {
@@ -58,7 +59,7 @@ export const getClosestTree = (blackboard: Blackboard, position: { x: number, y:
 
 
 export class Woodsman extends Phaser.Physics.Arcade.Image {
-  private _numLogsCollected: number = 0;
+  private _numLogsCollected: number = 3;
   public get numLogsCollected(): number {
     return this._numLogsCollected;
   }
@@ -79,7 +80,7 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
     this.defineSpriteAnimations();
     this.avatar.anims.play('idle-s');
 
-    this.numLogsCollectedDisplay = scene.add.text(0, 0, 'Logs: 0', { color: '#000', backgroundColor: 'rgba(255,255,255,0.3)' }).setDepth(10);
+    this.numLogsCollectedDisplay = scene.add.text(0, 0, 'Logs: ' + this.numLogsCollected, { color: '#000', backgroundColor: 'rgba(255,255,255,0.3)' }).setDepth(10);
 
     this.ai = new BehaviorTree(
       new ActiveSelector([
@@ -95,14 +96,21 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
           new GenericAction(()=>{
             return this.numLogsCollected >= 3 ? BehaviorStatus.SUCCESS : BehaviorStatus.FAILURE;
           }),
-          new LinearMotionTowardsPosition(this, () => ({ x: Math.random() * this.scene.scale.width, y: Math.random() * this.scene.scale.height }), 20, 150),
+          new LinearMotionTowardsPosition(this, () => {
+            const pts = (this.blackboard.get('neighborhood') as PoissonNeighborhood).getEnds();
+            const pt = pts[(Math.random() * pts.length) | 0];
+            // this.scene.add.rectangle(pt[0], pt[1], 32, 32, 0xff0000, 0.9).setDepth(10000);
+
+            if (!pt) { return {x: NaN, y: NaN}; }
+
+            return {x: pt[0], y: pt[1]};
+          }, 20, 400),
+          // new LinearMotionTowardsPosition(this, () => ({ x: Math.random() * this.scene.scale.width, y: Math.random() * this.scene.scale.height }), 20, 150),
           new GenericAction(()=>{
-            this.numLogsCollected = 0;
+            // this.numLogsCollected = 0;
 
-            const houseKey = 'House' + (((Math.random() * 11) | 0) + 1);
+            const houseKey = 'House' + (((Math.random() * 10) | 0) + 1);
             const house = scene.add.image(this.x, this.y, 'spritesheet', houseKey).setScale(2.5);
-
-            console.log('here', houseKey)
 
             house.setDepth(house.y + (house.height * 0.5));
 
@@ -114,7 +122,7 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
           new HasTreeNearby(this.blackboard, this.body?.position ?? this, 1000),
           new LinearMotionTowardsPosition(this, () => {
             return getClosestTree(this.blackboard, this.body?.position ?? this, 1000);
-          }, 10, 150, true),
+          }, 10, 400, true),
           new WaitMillisecondsAction(1000),
           new GenericAction(()=>{
             const tree = getClosestTree(this.blackboard, this.body?.position ?? this, 10) as ActualTree|null;
@@ -138,13 +146,6 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
             return BehaviorStatus.SUCCESS;
           }),
           new WaitMillisecondsAction(1000),
-        ]),
-
-        new FreshSequence([
-          new LinearMotionTowardsPosition(this, () => ({
-            x: Math.random() * this.scene.scale.width,
-            y: Math.random() * this.scene.scale.height
-          }), 20, 60),
         ]),
       ])
     );
