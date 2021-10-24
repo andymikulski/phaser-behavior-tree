@@ -43,21 +43,6 @@ class AlwaysSucceed extends Decorator {
   }
 }
 
-class DayNightCycle extends Sequence {
-  constructor(private blackboard: Blackboard) {
-    super();
-    this.blackboard.set('hasDaylight', true);
-    this.children = [
-      new GenericAction(() => {
-        console.log('switching daylight stuff')
-        const current = this.blackboard.get('hasDaylight', false);
-        this.blackboard.set('hasDaylight', !current);
-        return BehaviorStatus.SUCCESS;
-      })
-    ]
-  }
-}
-
 class NightFog extends Sequence {
   public readonly fog: FogOfWar;
 
@@ -66,6 +51,7 @@ class NightFog extends Sequence {
     const scene = this.blackboard.get<Phaser.Scene>('scene');
     if (!scene) { throw new Error("No scene found when instantiating NightFog"); }
 
+    this.blackboard.set('hasDaylight', true);
     const worldWidth = this.blackboard.get('worldWidth', 1024);
     const worldHeight = this.blackboard.get('worldHeight', 768);
 
@@ -74,11 +60,12 @@ class NightFog extends Sequence {
     fog.fogTexture.setDepth(100000);
     this.fog = fog;
 
-    let isDay = this.blackboard.get('hasDaylight', false);
-    this.fog.fogTexture.setVisible(!isDay).setActive(!isDay);
+    let isDay = true;
     let lastSwitch = Date.now();
     let isVisible = !isDay;
     fog.fogTexture.alpha = isVisible ? 1 : 0;
+
+    console.log('it is day')
 
     this.children = [
       new GrowFog(this, this.blackboard),
@@ -89,9 +76,10 @@ class NightFog extends Sequence {
         }
         lastSwitch = now;
         isDay = this.blackboard.get('hasDaylight');
+        console.log('it is currently:' + (isDay ? 'DAY' : 'NIGHT'), 'switching now!');
         this.blackboard.set('hasDaylight', !isDay)
 
-        isVisible = !isDay;
+        isVisible = isDay;
 
         const scene = this.fog.fogTexture.scene;
         scene.tweens.add({

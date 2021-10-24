@@ -47,7 +47,7 @@ export class MainGameScene extends Phaser.Scene {
     (this.renderer as any).pipelines?.add('lightTemperatureFX', new LightTemperatureFX(this.game, 6550));
     this.cameras.main.setPostPipeline('lightTemperatureFX');
 
-    this.cameras.main.zoom = 2.0;
+    this.cameras.main.zoom = 1;
     const worldWidth = this.scale.width * 4;
     const worldHeight = this.scale.height * 4;
     const bg = this.add.tileSprite(0, 0, worldWidth, worldHeight, 'env', 'Tiles-5').setOrigin(0, 0);

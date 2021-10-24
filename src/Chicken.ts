@@ -4,7 +4,7 @@ import { FreshSequence, Sequence } from "./Sequence";
 import { ActiveSelector, Selector } from "./Selector";
 import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand, IsTargetActivelyMoving, SetAnimationSpeed, IsTagWithinDistance, AccelerateAwayFromNearestTag } from './main';
 import Blackboard from './Blackboard';
-import { ResetGrowthStage, TomatoCrop } from './TomatoCrop';
+import { FailingAction, ResetGrowthStage, TomatoCrop } from './TomatoCrop';
 
 export class HasFoodNearby extends Condition {
   constructor(private blackboard: Blackboard, private position: { x: number, y: number }, private maxDistance: number) { super(); }
@@ -47,6 +47,35 @@ export class GenericAction extends Action {
   constructor(private fn:()=>BehaviorStatus) { super(); }
   update(){
     return this.fn();
+  }
+}
+
+export const getClosestLightSource = (blackboard: Blackboard, position: { x: number, y: number }, maxDistance: number):null|Phaser.GameObjects.Components.Transform => {
+  const lights = blackboard.getTagged('emitter:light') as Phaser.GameObjects.Components.Transform[];
+  if (!lights.length) { return null; }
+
+  let dist;
+  let closestDist = Infinity;
+  let nearestLight = null;
+  for (let i = 0; i < lights.length; i++) {
+    dist = Phaser.Math.Distance.BetweenPoints(lights[i], position);
+
+    if (dist > closestDist || dist > maxDistance) { continue; }
+    if (dist < closestDist) {
+      closestDist = dist;
+      nearestLight = lights[i];
+    }
+  }
+
+  return nearestLight;
+}
+
+export class HasDaylight extends Condition {
+  constructor(private blackboard:Blackboard) {
+    super();
+  }
+  update() {
+    return this.blackboard.get('hasDaylight', false) ? BehaviorStatus.SUCCESS : BehaviorStatus.FAILURE;
   }
 }
 
@@ -94,6 +123,16 @@ export class Chicken extends Phaser.Physics.Arcade.Image {
           new SetAnimationSpeed(this.avatar, 4),
           new AccelerateAwayFromNearestTag(this, 'humanoid', 125, 200, this.blackboard),
           new WaitMillisecondsAction(500),
+        ]),
+
+
+        // Night time? Go to nearby light source
+        new FreshSequence([
+          new Inverter(new HasDaylight(this.blackboard)),
+          new LinearMotionTowardsPosition(this, () => {
+            return getClosestLightSource(this.blackboard, this.body?.position ?? this, 2000);
+          }, 128, 75),
+          new FailingAction(),
         ]),
 
         // Find and eat nearby food
