@@ -6,6 +6,7 @@ import throttle from './throttle';
 import { Food } from './Food';
 import { MainGameScene } from './MainGameScene';
 import Blackboard from './Blackboard';
+import LightTemperatureFX from './ColorPostFXPipeline';
 
 
 export const rand = () => (Math.random() + Math.random() + Math.random()) / 3;
@@ -464,7 +465,7 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
 export class LoggingAction extends Action {
   constructor(private message: string | (() => string), private returnStatus: BehaviorStatus = BehaviorStatus.SUCCESS) { super(); }
   update() {
-    console.log('LoggingAction : ', typeof this.message === 'function' ? this.message() : this.message);
+    // console.log('LoggingAction : ', typeof this.message === 'function' ? this.message() : this.message);
     return this.returnStatus;
   }
 }

@@ -1,1 +1,2 @@
 - fix accelerate away from tags
+- fix issue where plots can have more than one building

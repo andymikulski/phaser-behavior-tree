@@ -17,6 +17,11 @@ export class BehaviorTree {
   abort() {
     return this.rootNode.abort?.();
   }
+
+  setRootNode(node:Behavior) {
+    this.rootNode?.abort?.();
+    this.rootNode = node;
+  }
 }
 
 export enum BehaviorStatus {
@@ -122,6 +127,9 @@ export abstract class Decorator extends Behavior {
   constructor(protected child: Behavior) {
     super();
   }
+  // tick() {
+  //   return this.child.tick();
+  // }
 }
 
 

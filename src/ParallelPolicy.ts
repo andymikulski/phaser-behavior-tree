@@ -1,11 +1,11 @@
-import { Composite, BehaviorStatus } from "./BehaviorTree";
+import { Composite, BehaviorStatus, Behavior } from "./BehaviorTree";
 
-enum ParallelPolicy {
+export enum ParallelPolicy {
   RequireOne,
   RequireAll
 }
 export class Parallel extends Composite {
-  constructor(protected successPolicy: ParallelPolicy, protected failurePolicy: ParallelPolicy) {
+  constructor(protected successPolicy: ParallelPolicy, protected failurePolicy: ParallelPolicy, protected children:Behavior[]) {
     super();
   }
 

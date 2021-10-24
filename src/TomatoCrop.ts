@@ -12,7 +12,7 @@ export class FailingAction extends Action {
 }
 
 export class Throttle extends Decorator {
-  constructor(private throttleMs: number, child: Behavior) { super(child); }
+  constructor(private throttleMs: number, child: Behavior , private throttledStatus:BehaviorStatus = BehaviorStatus.RUNNING) { super(child); }
 
   private lastTime: number;
   onInitialize() {
@@ -20,8 +20,9 @@ export class Throttle extends Decorator {
     this.lastTime = Date.now();
   }
   update() {
+    super.update();
     const now = Date.now();
-    return (now - this.lastTime < this.throttleMs) ? BehaviorStatus.RUNNING : this.child.tick();
+    return (now - this.lastTime < this.throttleMs) ? this.throttledStatus : this.child.tick();
   }
 }
 

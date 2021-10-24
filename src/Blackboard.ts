@@ -1,4 +1,4 @@
-type BlackboardObj = Phaser.GameObjects.Components.Transform | Phaser.GameObjects.GameObject;
+export type BlackboardObj = Phaser.GameObjects.Components.Transform | Phaser.GameObjects.GameObject;
 
 export default class Blackboard {
   private data: { [key: string]: any } = {};

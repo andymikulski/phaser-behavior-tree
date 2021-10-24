@@ -261,7 +261,7 @@ export default class PoissonNeighborhood {
 
   private withinExtent = (p: Tuple2D) => {
     var x = p[0], y = p[1];
-    const radius = 175;
+    const radius = 210;
     const x0 = radius;
     const y0 = radius;
     const x1 = this.worldWidth - radius;
@@ -273,7 +273,7 @@ export default class PoissonNeighborhood {
   constructor(private worldWidth: number, private worldHeight: number, private startX: number, private startY: number) {
     PerlinNoise.seed(1234567890);
 
-    const r = 175;
+    const r = 210;
     this.innerSqrd = r * r;
     this.A = 4 * r * r - this.innerSqrd;
     this.cellSize = r * Math.SQRT1_2;
@@ -326,14 +326,21 @@ export default class PoissonNeighborhood {
     return this.pointsOfInterest[0];
   }
 
+  private ends:any = null;
   public getEnds = () => {
-    let found = [];
+    if (this.ends && this.ends.length){
+      return this.ends.pop();
+    } else if (this.ends && !this.ends.length) {
+      return undefined;
+    }
+
+    this.ends = [];
     for(let i = 0; i < this.declaredWaypoints.length; i++){
       if (this.declaredWaypoints[i][2] < 2) {
-        found.push(this.declaredWaypoints[i]);
+        this.ends.push(this.declaredWaypoints[i]);
       }
     }
-    return found;
+    return this.ends;
   }
 
   public stepUntilPOI = () => {

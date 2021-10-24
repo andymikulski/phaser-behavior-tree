@@ -9,6 +9,8 @@ import { LocalPlayer, rand } from './main';
 import { Woodsman } from './Woodsman';
 import { ActualTree } from './ActualTree';
 import PoissonNeighborhood from './NeighborhoodGenerator';
+import { LightingAI } from './LightingAI';
+import LightTemperatureFX from './ColorPostFXPipeline';
 
 // import SpritesheetStuff from './asset/sprites.json';
 // const itemNames = SpritesheetStuff.textures[0].frames.map(y => y.filename);
@@ -28,44 +30,39 @@ export class MainGameScene extends Phaser.Scene {
   private enemies: Enemy[] = [];
   // private food: Food[] = [];
   private player: LocalPlayer;
+  private lightAi: LightingAI;
 
   preload = () => {
     this.load.image('mario', 'https://i.imgur.com/nKgMvuj.png');
     this.load.image('background', 'https://i.imgur.com/dzpw15B.jpg');
+    this.load.image('fog-dot', 'https://i.imgur.com/tehnIVH.png');
 
     this.load.atlas('env', 'asset/env.png', 'asset/env.json');
     this.load.atlas('bubbles', 'asset/bubbles.png', 'asset/bubbles.json');
     this.load.atlas('spritesheet', 'asset/spritesheet.png', 'asset/spritesheet.json');
   };
 
-  create = () => {
-    this.cameras.main.zoom = 0.5;
-    const worldWidth = this.scale.width * 3;
-    const worldHeight = this.scale.height * 3;
 
+  create = () => {
+    (this.renderer as any).pipelines?.add('lightTemperatureFX', new LightTemperatureFX(this.game, 6550));
+    this.cameras.main.setPostPipeline('lightTemperatureFX');
+
+    this.cameras.main.zoom = 2.0;
+    const worldWidth = this.scale.width * 4;
+    const worldHeight = this.scale.height * 4;
     const bg = this.add.tileSprite(0, 0, worldWidth, worldHeight, 'env', 'Tiles-5').setOrigin(0, 0);
 
     this.aiBlackboard = new Blackboard();
-    this.aiBlackboard.set('hasDaylight', true);
+    this.aiBlackboard.set('scene', this);
+    this.aiBlackboard.set('worldWidth', worldWidth);
+    this.aiBlackboard.set('worldHeight', worldHeight);
 
     const hood = new PoissonNeighborhood(worldWidth, worldHeight, worldWidth / 2, worldHeight / 2);
-    let lastX;
-    let lastY;
-    // for(let i = 0; i < 25; i++ ){
-    //   const pos = hood.stepUntilPOI();
-    //   if (pos[0] === lastX && pos[1] === lastY){
-    //     console.log('out of POIs')
-    //     continue;
-    //   }
-    //   lastX = pos[0];
-    //   lastY = pos[1];
-
-    //   this.add.rectangle(pos[0], pos[1], 32, 32, 0xff0000, 0.8).setDepth(200000);
-    // }
-
-    lastX = null;
 
     this.aiBlackboard.set('neighborhood', hood);
+
+    // Register the 'ai' behavior which handles the streetlight effects
+    this.lightAi = new LightingAI(this, this.aiBlackboard);
 
     this.input.mouse.disableContextMenu();
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
@@ -73,39 +70,43 @@ export class MainGameScene extends Phaser.Scene {
     const lp = new LocalPlayer(this, worldWidth / 2, worldHeight / 2);
     const player = this.physics.add.existing(lp).setDisplaySize(32, 32).setCollideWorldBounds(true).setMaxVelocity(100, 100);
     this.player = player;
-    this.aiBlackboard.tagObject(['humanoid'], player);
+    this.aiBlackboard.tagObject(['humanoid', 'emitter:light'], player);
+
+
 
 
     this.cameras.main.startFollow(player, false, 0.4, 0.4);
     this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
     this.cameras.main.setDeadzone(400, 200);
 
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 100; i++) {
       const plant = new TomatoCrop(this, rand() * worldWidth, rand() * worldHeight, this.aiBlackboard);
       this.physics.add.existing(plant).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);
-      this.npcList.push(plant);
+      this.registerBehavior(plant);
 
       this.aiBlackboard.tagObject(['crop'], plant);
       hood.registerObstacle([plant.x, plant.y, 10]);
     }
 
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 100; i++) {
       const tree = new ActualTree(this, Math.random() * worldWidth, Math.random() * worldHeight, this.aiBlackboard);
       // tree.setDisplaySize(32, 32).setDepth(10);
       this.physics.add.existing(tree).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);
 
       this.aiBlackboard.tagObject(['tree', 'tree:grown'], tree);
 
-      this.npcList.push(tree);
+      this.registerBehavior(tree);
 
       hood.registerObstacle([tree.x, tree.y, 10]);
     }
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       const chicken = new Chicken(this, Math.random() * worldWidth, Math.random() * worldHeight, player, this.aiBlackboard);
       chicken.setDisplaySize(32, 32).setDepth(10);
       this.physics.add.existing(chicken).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);
-      this.npcList.push(chicken);
+      this.registerBehavior(chicken);
+
+      // this.aiBlackboard.tagObject(['emitter:light'], chicken);
     }
 
     for (let i = 0; i < 0; i++) {
@@ -113,7 +114,7 @@ export class MainGameScene extends Phaser.Scene {
       const enemy = new Enemy(this, Math.random() * worldWidth, Math.random() * worldHeight, player, this.aiBlackboard).setDisplaySize(32, 32).setDepth(10);
       this.physics.add.existing(enemy).setCollideWorldBounds(true).setMaxVelocity(75, 75).setImmovable(false).setPushable(true);
       this.enemies.push(enemy);
-      this.npcList.push(enemy);
+      this.registerBehavior(enemy);
       this.aiBlackboard.tagObject(['humanoid'], enemy);
     }
 
@@ -126,7 +127,7 @@ export class MainGameScene extends Phaser.Scene {
       this.sys.updateList.add(woodsman);
 
       this.physics.add.existing(woodsman).setCollideWorldBounds(true).setMaxVelocity(75, 75).setImmovable(false).setPushable(true);
-      this.npcList.push(woodsman);
+      this.registerBehavior(woodsman);
       this.aiBlackboard.tagObject(['humanoid'], woodsman);
     }
 
@@ -151,7 +152,12 @@ export class MainGameScene extends Phaser.Scene {
       if (declaredWaypoints[i][2] < 2) {
         // this.add.rectangle(declaredWaypoints[i][0], declaredWaypoints[i][1], declaredWaypoints[i][2] * 16, declaredWaypoints[i][2] * 16, 0x0000ff, 0.8).setDepth(200000 - 3)
         buildable.push(declaredWaypoints[i]);
-      } else {
+      } else if (declaredWaypoints[i][2] > 3) {
+        let x = declaredWaypoints[i][0] + (rand() * 10 * (Math.random() > 0.5 ? 1 : -1));
+        let y = declaredWaypoints[i][1] + (rand() * 10 * (Math.random() > 0.5 ? 1 : -1));
+
+        const light = this.add.image(x, y, 'spritesheet', 'Streetlight-On').setScale(2);
+        this.aiBlackboard.tagObject(['emitter:light'], light);
         // this.add.rectangle(declaredWaypoints[i][0], declaredWaypoints[i][1], declaredWaypoints[i][2] * 16, declaredWaypoints[i][2] * 16, 0xff0000, 0.8).setDepth(200000 - 3)
       }
     }
@@ -193,11 +199,12 @@ export class MainGameScene extends Phaser.Scene {
 
   updateLocalAgent = throttle(() => {
     this.player.ai?.tick();
+    this.lightAi?.ai.tick();
   }, 1000 / 30); // 30fps
 
   updateAI = throttle(() => {
     for (let i = 0; i < this.npcList.length; i++) {
       this.npcList[i].ai.tick();
     }
-  }, 1000 / 10); // 10fps - increasing this speed makes them appear smarter
+  }, 1000 / 12); // 10fps - increasing this speed makes them appear smarter
 }

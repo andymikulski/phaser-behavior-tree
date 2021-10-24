@@ -135,7 +135,16 @@ export class Chicken extends Phaser.Physics.Arcade.Image {
           // new LoggingAction('\Chicken: Idling..'),
           new WaitMillisecondsAction(500),
           // Wander
-          new LinearMotionTowardsPosition(this, () => ({ x: rand() * 1024 * 3, y: rand() * 768 * 3 }), 20, 60),
+          new LinearMotionTowardsPosition(this, () => {
+            const pos = {x: this.body?.position.x || this.x, y: this.body?.position.y || this.y};
+            pos.x += (Math.random() > 0.5 ? -1 : 1) * (rand() * 200);
+            pos.y += (Math.random() > 0.5 ? -1 : 1) * (rand() * 200);
+
+            pos.x %= this.blackboard.get('worldWidth', 1024);
+            pos.y %= this.blackboard.get('worldHeight', 768);
+
+            return pos;
+          }, 20, 60),
           new WaitMillisecondsAction(500),
         ])
       ])

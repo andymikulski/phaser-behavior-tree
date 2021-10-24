@@ -92,37 +92,61 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
           new AccelerateAwayFromPosition(this, player, 125)
         ]),
 
+
+        // Have logs; build house
         new FreshSequence([
           new GenericAction(()=>{
             return this.numLogsCollected >= 3 ? BehaviorStatus.SUCCESS : BehaviorStatus.FAILURE;
           }),
           new LinearMotionTowardsPosition(this, () => {
-            const pts = (this.blackboard.get('neighborhood') as PoissonNeighborhood).getEnds();
-            const pt = pts[(Math.random() * pts.length) | 0];
+            const pt = (this.blackboard.get('neighborhood') as PoissonNeighborhood).getEnds();
+            // const pt = pts[(Math.random() * pts.length) | 0];
             // this.scene.add.rectangle(pt[0], pt[1], 32, 32, 0xff0000, 0.9).setDepth(10000);
 
             if (!pt) { return {x: NaN, y: NaN}; }
 
             return {x: pt[0], y: pt[1]};
-          }, 20, 400),
+          }, 20, 75),
           // new LinearMotionTowardsPosition(this, () => ({ x: Math.random() * this.scene.scale.width, y: Math.random() * this.scene.scale.height }), 20, 150),
           new GenericAction(()=>{
             // this.numLogsCollected = 0;
-
             const houseKey = 'House' + (((Math.random() * 10) | 0) + 1);
             const house = scene.add.image(this.x, this.y, 'spritesheet', houseKey).setScale(2.5);
 
+            this.blackboard.tagObject(['emitter:light'], house);
+
             house.setDepth(house.y + (house.height * 0.5));
+
+            house.setScale(0.4 + (rand() / 2), 0.6 + (rand() / 2));
+            scene.tweens.add({
+              targets: house,
+              props: {
+                scaleY: 2.5,
+              },
+              ease: Phaser.Math.Easing.Bounce.Out,
+              duration: 1500,
+            })
+
+            scene.tweens.add({
+              targets: house,
+              props: {
+                scaleX: 2.5,
+              },
+              ease: Phaser.Math.Easing.Bounce.Out,
+              duration: 1250,
+            })
 
             return BehaviorStatus.SUCCESS;
           })
         ]),
 
+
+
         new FreshSequence([
           new HasTreeNearby(this.blackboard, this.body?.position ?? this, 1000),
           new LinearMotionTowardsPosition(this, () => {
             return getClosestTree(this.blackboard, this.body?.position ?? this, 1000);
-          }, 10, 400, true),
+          }, 10, 75, true),
           new WaitMillisecondsAction(1000),
           new GenericAction(()=>{
             const tree = getClosestTree(this.blackboard, this.body?.position ?? this, 10) as ActualTree|null;
@@ -147,6 +171,19 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
           }),
           new WaitMillisecondsAction(1000),
         ]),
+
+
+        new FreshSequence([
+          new WaitMillisecondsAction(()=>Math.random()*1000),
+          new LinearMotionTowardsPosition(this, () => {
+            const pos = {x: this.body?.position.x || this.x, y: this.body?.position.y || this.y};
+            pos.x += (Math.random() > 0.5 ? -1 : 1) * (rand() * 50);
+            pos.y += (Math.random() > 0.5 ? -1 : 1) * (rand() * 50);
+
+            return pos;
+          }, 5, 60),
+          new WaitMillisecondsAction(()=>Math.random()*1000),
+        ])
       ])
     );
 
@@ -267,7 +304,6 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
       repeat: -1,
     });
   }
-
 
   private getDirectionFromVelocity = (vel:{x:number;y:number;}) => {
     if (Math.abs(vel.x) > Math.abs(vel.y)){
