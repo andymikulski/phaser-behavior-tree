@@ -261,7 +261,7 @@ export default class PoissonNeighborhood {
 
   private withinExtent = (p: Tuple2D) => {
     var x = p[0], y = p[1];
-    const radius = 210;
+    const radius = 150;
     const x0 = radius;
     const y0 = radius;
     const x1 = this.worldWidth - radius;
@@ -273,7 +273,7 @@ export default class PoissonNeighborhood {
   constructor(private worldWidth: number, private worldHeight: number, private startX: number, private startY: number) {
     PerlinNoise.seed(1234567890);
 
-    const r = 210;
+    const r = 150;
     this.innerSqrd = r * r;
     this.A = 4 * r * r - this.innerSqrd;
     this.cellSize = r * Math.SQRT1_2;
@@ -283,8 +283,8 @@ export default class PoissonNeighborhood {
 
 
     while (!this.checkValidLand([startX, startY] as Tuple2D)) {
-      startX = (startX + Math.random()) % this.worldWidth
-      startY = (startY + Math.random()) % this.worldHeight
+      startX = (startX + (Math.random() * 10 * (Math.random() > 0.5 ? -1 : 1))) % this.worldWidth
+      startY = (startY + (Math.random() * 10 * (Math.random() > 0.5 ? -1 : 1))) % this.worldHeight
     }
     this.startX = startX;
     this.startY = startY;
@@ -320,23 +320,22 @@ export default class PoissonNeighborhood {
   }
 
   public getPOI = () => {
-    if (!this.pointsOfInterest.length){
+    if (!this.pointsOfInterest.length) {
       this.stepUntilPOI();
     }
     return this.pointsOfInterest[0];
   }
 
+
   private ends:any = null;
   public getEnds = () => {
-    if (this.ends && this.ends.length){
-      return this.ends.pop();
-    } else if (this.ends && !this.ends.length) {
-      return undefined;
+    if (this.ends) {
+      return this.ends;
     }
 
     this.ends = [];
     for(let i = 0; i < this.declaredWaypoints.length; i++){
-      if (this.declaredWaypoints[i][2] < 2) {
+      if (this.declaredWaypoints[i][2] <= 1) {
         this.ends.push(this.declaredWaypoints[i]);
       }
     }

@@ -4,6 +4,7 @@ import { FreshSequence, Sequence } from "./Sequence";
 import { ActiveSelector, Selector } from "./Selector";
 import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand, IsTargetActivelyMoving, SetAnimationSpeed } from './main';
 import Blackboard from './Blackboard';
+import { AlwaysFail } from './LightingAI';
 
 export class FailingAction extends Action {
   update() {
@@ -97,7 +98,7 @@ export class IsFullyGrown extends Condition {
 
 
 enum GrowthStatus {
-  Seeds,
+  Seeds = 0,
   Stage1,
   Stage2,
   Stage3,
@@ -107,7 +108,7 @@ enum GrowthStatus {
 
 
 export class TomatoCrop extends Phaser.Physics.Arcade.Image {
-  growthStage: GrowthStatus = GrowthStatus.Seeds;
+  public growthStage: GrowthStatus = GrowthStatus.Seeds;
 
   avatar: Phaser.GameObjects.Image;
   emote: Phaser.GameObjects.Image;
@@ -122,6 +123,8 @@ export class TomatoCrop extends Phaser.Physics.Arcade.Image {
 
     this.ai = new BehaviorTree(
       new ActiveSelector([
+        new AlwaysFail(new UpdateTomatoPlantTexture(this, this.avatar)),
+
         new FreshSequence([
           new HasSunlight(this.blackboard),
           new WaitMillisecondsAction(() => 1000 + (Math.random() * 5000)),

@@ -23,7 +23,7 @@ class GrowFog extends Action {
 class ClearFog extends Action {
   constructor(private self: NightFog, private blackboard: Blackboard) { super(); }
   update() {
-    const emitters = (this.blackboard.getTagged('emitter:light') || []) as Phaser.GameObjects.Components.Transform[];
+    const emitters = (this.blackboard.getTagged('gfx:clear-fog') || []) as Phaser.GameObjects.Components.Transform[];
     for (let i = 0; i < emitters.length; i++) {
       this.self.fog.reveal(emitters[i].x, emitters[i].y, emitters[i] instanceof LocalPlayer ? 12 : 32);
     }
@@ -31,7 +31,7 @@ class ClearFog extends Action {
   }
 }
 
-class AlwaysSucceed extends Decorator {
+export class AlwaysSucceed extends Decorator {
   update() {
     this.child.update();
     return BehaviorStatus.SUCCESS;
@@ -40,6 +40,18 @@ class AlwaysSucceed extends Decorator {
   tick() {
     this.child.tick();
     return BehaviorStatus.SUCCESS;
+  }
+}
+
+export class AlwaysFail extends Decorator {
+  update() {
+    this.child.update();
+    return BehaviorStatus.FAILURE;
+  }
+
+  tick() {
+    this.child.tick();
+    return BehaviorStatus.FAILURE;
   }
 }
 
@@ -65,7 +77,7 @@ class NightFog extends Sequence {
     let isVisible = !isDay;
     fog.fogTexture.alpha = isVisible ? 1 : 0;
 
-    console.log('it is day')
+    // console.log('it is day')
 
     this.children = [
       new GrowFog(this, this.blackboard),
@@ -76,7 +88,7 @@ class NightFog extends Sequence {
         }
         lastSwitch = now;
         isDay = this.blackboard.get('hasDaylight');
-        console.log('it is currently:' + (isDay ? 'DAY' : 'NIGHT'), 'switching now!');
+        // console.log('it is currently:' + (isDay ? 'DAY' : 'NIGHT'), 'switching now!');
         this.blackboard.set('hasDaylight', !isDay)
 
         isVisible = isDay;
@@ -84,9 +96,9 @@ class NightFog extends Sequence {
         const scene = this.fog.fogTexture.scene;
         scene.tweens.add({
           targets: this.fog.fogTexture,
-          alpha: isVisible ? 1 : 0,
+          alpha: isVisible ? 0.5 : 0,
           ease: 'Linear',
-          duration: 1500,
+          duration: 5000,
         });
 
         return isDay ? BehaviorStatus.FAILURE : BehaviorStatus.SUCCESS;

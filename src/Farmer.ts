@@ -59,30 +59,30 @@ export const getClosestTree = (blackboard: Blackboard, position: { x: number, y:
 
 
 
-export class Woodsman extends Phaser.Physics.Arcade.Image {
-  private _numLogsCollected: number = 0;
-  public get numLogsCollected(): number {
-    return this._numLogsCollected;
+export class Farmer extends Phaser.Physics.Arcade.Image {
+  private _numTomatoesCollected: number = 0;
+  public get numTomatoesCollected(): number {
+    return this._numTomatoesCollected;
   }
-  public set numLogsCollected(v: number) {
-    this._numLogsCollected = v;
-    this.numLogsCollectedDisplay.setText('Logs: ' + this._numLogsCollected);
+  public set numTomatoesCollected(v: number) {
+    this._numTomatoesCollected = v;
+    this.numTomatoesCollectedDisplay.setText('Tomatoes: ' + this._numTomatoesCollected);
   }
 
   numLogsCollectedDisplay: Phaser.GameObjects.Text;
+  numTomatoesCollectedDisplay: Phaser.GameObjects.Text;
   avatar: Phaser.GameObjects.Sprite;
 
   ai: BehaviorTree;
   constructor(scene: Phaser.Scene, x: number, y: number, player: LocalPlayer, private blackboard: Blackboard) {
     super(scene, x, y, 'env');
 
-    this.avatar = scene.add.sprite(0, 0, 'generic-avatar', 'walk-0').setOrigin(0, 0).setDisplaySize(64, 64).setTint(0x8a3324);
+    this.avatar = scene.add.sprite(0, 0, 'generic-avatar', 'walk-0').setOrigin(0, 0).setDisplaySize(64, 64).setTint(0xa1e064);
 
     this.defineSpriteAnimations();
     this.avatar.anims.play('idle-s');
 
-    this.numLogsCollectedDisplay = scene.add.text(0, 0, 'Logs: ' + this.numLogsCollected, { color: '#000', backgroundColor: 'rgba(255,255,255,0.3)' }).setDepth(10);
-
+    this.numTomatoesCollectedDisplay = scene.add.text(0, 0, 'Tomatoes: ' + this.numTomatoesCollected, { color: '#000', backgroundColor: 'rgba(255,255,255,0.3)' }).setDepth(10);
 
     this.ai = new BehaviorTree(
       new ActiveSelector([
@@ -95,92 +95,41 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
         ]),
 
 
-        // Have logs; build house
+        // Find and pick tomatoes
         new FreshSequence([
-          new GenericAction(() => {
-            return this.numLogsCollected >= 3 ? BehaviorStatus.SUCCESS : BehaviorStatus.FAILURE;
-          }),
-          new SetAnimation(this.avatar, 'walk-s'),
+          new HasFoodNearby(this.blackboard, this.body?.position ?? this, 300),
+          new SetAnimation(this.avatar, 'walk-e'),
           new LinearMotionTowardsPosition(this, () => {
-            const pts = (this.blackboard.get('neighborhood') as PoissonNeighborhood).getEnds();
-
-            const pt = pts[(Math.random() * pts.length) | 0];
-            // const pt = pts[(Math.random() * pts.length) | 0];
-            // this.scene.add.rectangle(pt[0], pt[1], 32, 32, 0xff0000, 0.9).setDepth(10000);
-
-            if (!pt) { return { x: NaN, y: NaN }; }
-
-            return { x: pt[0], y: pt[1] };
-          }, 20, 75),
-          // new LinearMotionTowardsPosition(this, () => ({ x: Math.random() * this.scene.scale.width, y: Math.random() * this.scene.scale.height }), 20, 150),
-          new SetAnimation(this.avatar, 'sword-e'),
-          new GenericAction(() => {
-            this.numLogsCollected = 0;
-            const houseKey = 'House' + (((Math.random() * 10) | 0) + 1);
-            const house = scene.add.image(this.x, this.y, 'spritesheet', houseKey).setScale(2.5);
-
-            this.blackboard.tagObject(['emitter:light', 'gfx:clear-fog'], house);
-
-            house.setDepth(house.y + (house.height * 0.5));
-
-            house.setScale(0.4 + (rand() / 2), 0.6 + (rand() / 2));
-            scene.tweens.add({
-              targets: house,
-              props: {
-                scaleY: 2.5,
-              },
-              ease: Phaser.Math.Easing.Bounce.Out,
-              duration: 1500,
-            })
-
-            scene.tweens.add({
-              targets: house,
-              props: {
-                scaleX: 2.5,
-              },
-              ease: Phaser.Math.Easing.Bounce.Out,
-              duration: 1250,
-            })
-
-            return BehaviorStatus.SUCCESS;
-          })
-        ]),
-
-
-
-        // Chop down tree
-        new FreshSequence([
-          new HasTreeNearby(this.blackboard, this.body?.position ?? this, 300),
-          new SetAnimation(this.avatar, 'walk-s'),
-          new LinearMotionTowardsPosition(this, () => {
-            return getClosestTree(this.blackboard, this.body?.position ?? this, 300);
-          }, 10, 75, true),
-          new SetAnimation(this.avatar, 'axe-w'),
+            return getClosestFood(this.blackboard, this.body?.position ?? this, 300);
+          }, 10, 100, true),
+          new SetAnimation(this.avatar, 'hoe-w'),
+          // new LoggingAction('Chicken: Reached the food!'),
           new WaitMillisecondsAction(1000),
           new GenericAction(() => {
-            const tree = getClosestTree(this.blackboard, this.body?.position ?? this, 10) as ActualTree | null;
-            if (!tree) { return BehaviorStatus.FAILURE; }
-            // Reset tomato tree
-            tree.ai.enabled = false;
-            tree.growthStage = 0;
-            tree.avatar.setTexture('spritesheet', 'Tree1-Stump');
+            const closestFood = getClosestFood(this.blackboard, this.body?.position ?? this, 10) as TomatoCrop | null;
+            if (!closestFood) { return BehaviorStatus.FAILURE; }
+            // Reset tomato plant
+            closestFood.ai.enabled = false;
+            closestFood.growthStage = 0;
+            closestFood.avatar.setTexture('env', 'TomatoSeeds');
 
-            // This is bad, the tree itself should be responsible for handling being eaten
-            this.blackboard.removeObjectTags(['tree:grown'], tree);
-            this.blackboard.tagObject(['tree:stump'], tree);
-
+            // This is bad, the plant itself should be responsible for handling being eaten
+            this.blackboard.removeObjectTags(['food'], closestFood);
             setTimeout(() => {
-              tree.ai.enabled = true;
-            }, 20_000);
+              closestFood.ai.enabled = true;
+            }, 3000);
+
+            return BehaviorStatus.SUCCESS;
+          }),
+          new GenericAction(() => {
+            this.numTomatoesCollected += 1;
             return BehaviorStatus.SUCCESS;
           }),
           new SetAnimation(this.avatar, 'idle-s'),
-          new GenericAction(() => {
-            this.numLogsCollected += 1;
-            return BehaviorStatus.SUCCESS;
-          }),
+          // new LoggingAction('Chicken: FOOD ANNIHIALIATED'),
           new WaitMillisecondsAction(1000),
         ]),
+
 
 
         // Idle
@@ -205,8 +154,9 @@ export class Woodsman extends Phaser.Physics.Arcade.Image {
     this.scene.physics.world.on('worldstep', () => {
       this.avatar.x = this.body.x + 1;
       this.avatar.y = this.body.y - 15;
-      this.numLogsCollectedDisplay.x = this.body.x + 1;
-      this.numLogsCollectedDisplay.y = this.body.y - 15;
+
+      this.numTomatoesCollectedDisplay.x = this.body.x + 1;
+      this.numTomatoesCollectedDisplay.y = this.body.y - 15;
     });
   }
 

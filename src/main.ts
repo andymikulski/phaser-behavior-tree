@@ -12,14 +12,14 @@ import LightTemperatureFX from './ColorPostFXPipeline';
 export const rand = () => (Math.random() + Math.random() + Math.random()) / 3;
 
 const game = new Phaser.Game({
-  width: 1024,
-  height: 768,
+  width: 1400,
+  height: 900,
   backgroundColor: 0xa1e064,
 
   pixelArt: true,
 
   scale: {
-    mode: Phaser.Scale.RESIZE,
+    mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
 
@@ -225,6 +225,18 @@ export class SetAnimationSpeed extends Action {
 }
 
 
+
+export class SetAnimation extends Action {
+  constructor(private self: Phaser.GameObjects.Sprite, private animationKey: string, private ignoreIfAlreadyPlaying = true) {
+    super();
+  }
+  update() {
+    this.self.anims.play(this.animationKey, this.ignoreIfAlreadyPlaying);
+    return BehaviorStatus.SUCCESS;
+  }
+}
+
+
 export class AccelerateAwayFromPosition extends Action {
   constructor(private self: Phaser.Physics.Arcade.Image, private target: { x: number; y: number; }, private targetDist: number = 100, private speed: number = 125) {
     super();
@@ -265,7 +277,7 @@ export class AccelerateAwayFromNearestTag extends Action {
     this.self.setMaxVelocity(this.speed, this.speed);
     this.target = GetClosestTaggedObject(this.blackboard, this.self.body?.position ?? this.self, this.tag);
 
-    console.log('on intiailize accelerate away', this.target);
+    // console.log('on intiailize accelerate away', this.target);
   };
 
   update() {
@@ -399,11 +411,312 @@ class GotoBranch extends Action {
 export class LocalPlayer extends Phaser.Physics.Arcade.Image {
   public health: number = 100;
 
-  avatar: Phaser.GameObjects.Image;
+  avatar: Phaser.GameObjects.Sprite;
   ai: BehaviorTree;
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'mario');
-    this.avatar = scene.add.image(0, 0, 'mario').setDepth(2).setDisplaySize(32, 32).setOrigin(0, 0);
+    this.avatar = scene.add.sprite(0, 0, 'generic-avatar', 'walk-0').setDepth(2).setDisplaySize(64, 64).setOrigin(0, 0);
+
+    this.avatar.anims.create({
+      key: 'walk-s',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'walk-',
+        start: 0,
+        end: 7,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'walk-n',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'walk-',
+        start: 8,
+        end: 15,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'walk-e',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'walk-',
+        start: 16,
+        end: 23,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'walk-w',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'walk-',
+        start: 24,
+        end: 31,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'axe-s',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'axe-',
+        start: 0,
+        end: 4,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'axe-n',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'axe-',
+        start: 5,
+        end: 9,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'axe-e',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'axe-',
+        start: 10,
+        end: 14,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'axe-w',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'axe-',
+        start: 15,
+        end: 19,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'hoe-s',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'hoe-',
+        start: 0,
+        end: 4,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'hoe-n',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'hoe-',
+        start: 5,
+        end: 9,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'hoe-e',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'hoe-',
+        start: 10,
+        end: 14,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'hoe-w',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'hoe-',
+        start: 15,
+        end: 19,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'die',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'die-',
+        start: 0,
+        end: 1,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'sword-s',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'sword-',
+        start: 0,
+        end: 3,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+
+    });
+
+    this.avatar.anims.create({
+      key: 'sword-s',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'sword-',
+        start: 0,
+        end: 3,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+
+    });
+
+    this.avatar.anims.create({
+      key: 'sword-n',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'sword-',
+        start: 4,
+        end: 7,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+
+    });
+
+    this.avatar.anims.create({
+      key: 'sword-e',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'sword-',
+        start: 8,
+        end: 11,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+
+    });
+
+    this.avatar.anims.create({
+      key: 'sword-w',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'sword-',
+        start: 12,
+        end: 15,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+
+    });
+
+    this.avatar.anims.create({
+      key: 'water-s',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'water-',
+        start: 0,
+        end: 1,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'water-n',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'water-',
+        start: 2,
+        end: 3,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'water-e',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'water-',
+        start: 4,
+        end: 5,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'water-w',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'water-',
+        start: 6,
+        end: 7,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 2,
+      repeat: -1,
+    });
+
+    this.avatar.anims.create({
+      key: 'idle-s',
+      frames: this.avatar.anims.generateFrameNames('generic-avatar', {
+        prefix: 'walk-',
+        start: 0,
+        end: 0,
+        suffix: '',
+        zeroPad: 0,
+      }),
+      duration: 1000 / 1,
+      repeat: -1,
+    });
+
+    this.avatar.anims.play('walk-s');
 
 
     this.avatar.setDepth(0);
@@ -446,17 +759,26 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
     scene.input.on('pointerdown', onPointerDown);
     scene.input.on('pointermove', onPointerDown);
 
+
     this.scene.physics.world.on('worldstep', () => {
       this.avatar.x = this.body.x;
       this.avatar.y = this.body.y;
       this.avatar.setDepth(this.avatar.y + (this.avatar.height * 0.75));
 
-      let wasFlipped = this.avatar.flipX;
-      if (this.body.velocity.x === 0) {
-        this.avatar.flipX = wasFlipped;
-      } else {
-        this.avatar.flipX = this.body.velocity.x < 0;
-      }
+      // if (this.body.velocity.x < 0.1 && this.body.velocity.x > -0.1
+      //   && this.body.velocity.y < 0.1 && this.body.velocity.y > -0.1) {
+      //     // this.avatar.anims.play('idle-s', true);
+      // } else if (Math.abs(this.body.velocity.x) > Math.abs(this.body.velocity.y)){
+      //   this.avatar.anims.play(
+      //     this.body.velocity.x > 0 ? 'walk-e' : 'walk-w',
+      //     true
+      //   )
+      // } else {
+      //   this.avatar.anims.play(
+      //     this.body.velocity.y < 0 ? 'walk-n' : 'walk-s',
+      //     true
+      //   )
+      // }
     });
   }
 }
