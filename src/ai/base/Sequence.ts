@@ -1,6 +1,8 @@
-import { Composite, BehaviorStatus } from "./BehaviorTree";
 
 // ex Composite (pg 79) ("AND")
+
+import { BehaviorStatus } from "./BehaviorStatus";
+import { Composite } from "./Composite";
 
 
 /**

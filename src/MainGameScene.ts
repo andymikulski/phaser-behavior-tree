@@ -1,9 +1,9 @@
 import Phaser, { Curves } from 'phaser';
-import { BehaviorTree } from './BehaviorTree';
+import { BehaviorTree } from './ai/BehaviorTree';
 import throttle from './throttle';
 import { Enemy } from './Enemy';
 import { Chicken } from './Chicken';
-import Blackboard from './Blackboard';
+import Blackboard from './ai/data/Blackboard';
 import { TomatoCrop } from './TomatoCrop';
 import { LocalPlayer, rand } from './main';
 import { Woodsman } from './Woodsman';

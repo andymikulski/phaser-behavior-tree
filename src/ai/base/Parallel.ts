@@ -1,4 +1,5 @@
-import { Composite, BehaviorStatus, Behavior } from "./BehaviorTree";
+import { BehaviorStatus, Behavior } from "./BehaviorStatus";
+import { Composite } from "./Composite";
 
 export enum ParallelPolicy {
   RequireOne,

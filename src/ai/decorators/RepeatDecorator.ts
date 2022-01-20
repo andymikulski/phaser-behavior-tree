@@ -1,4 +1,5 @@
-import { Decorator, Behavior, BehaviorStatus } from './BehaviorTree';
+import { Decorator } from "../base/Decorator";
+import { Behavior, BehaviorStatus } from "../base/BehaviorStatus";
 
 // Example decorator (pg 78)
 // Repeats a given behavior N times or until first failure

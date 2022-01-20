@@ -1,13 +1,12 @@
-import Phaser, { GameObjects } from 'phaser';
-import { Action, Behavior, BehaviorStatus, BehaviorTree, Composite, Condition, Decorator } from './BehaviorTree';
-import { FreshSequence, Sequence } from "./Sequence";
-import { ActiveSelector, Selector } from "./Selector";
-import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand, IsTargetActivelyMoving, SetAnimationSpeed } from './main';
-import Blackboard, { BlackboardObj } from './Blackboard';
+import Phaser from 'phaser';
+import { BehaviorTree } from './ai/BehaviorTree';
+import { Action } from "./ai/base/Action";
+import { BehaviorStatus } from "./ai/base/BehaviorStatus";
+import { Sequence } from "./ai/base/Sequence";
+import { LocalPlayer} from './main';
+import Blackboard from './ai/data/Blackboard';
 import FogOfWar from './FogOfWar';
-import { Parallel, ParallelPolicy } from './ParallelPolicy';
-import { FailingAction, Throttle } from './TomatoCrop';
-import { GenericAction } from './Chicken';
+import { GenericAction } from "./ai/actions/GenericAction";
 
 
 
@@ -28,30 +27,6 @@ class ClearFog extends Action {
       this.self.fog.reveal(emitters[i].x, emitters[i].y, emitters[i] instanceof LocalPlayer ? 12 : 32);
     }
     return BehaviorStatus.SUCCESS;
-  }
-}
-
-export class AlwaysSucceed extends Decorator {
-  update() {
-    this.child.update();
-    return BehaviorStatus.SUCCESS;
-  }
-
-  tick() {
-    this.child.tick();
-    return BehaviorStatus.SUCCESS;
-  }
-}
-
-export class AlwaysFail extends Decorator {
-  update() {
-    this.child.update();
-    return BehaviorStatus.FAILURE;
-  }
-
-  tick() {
-    this.child.tick();
-    return BehaviorStatus.FAILURE;
   }
 }
 
@@ -123,7 +98,6 @@ export class LightingAI extends Phaser.GameObjects.GameObject {
 
     this.ai = new BehaviorTree(
       new Sequence([
-
         // new DayNightCycle(this.blackboard),
         new NightFog(this.blackboard),
       ])

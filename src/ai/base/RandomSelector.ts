@@ -1,9 +1,7 @@
-import { BehaviorStatus } from "./BehaviorTree";
+import { BehaviorStatus } from "./BehaviorStatus";
 import { Sequence } from "./Sequence";
 
-
 export class RandomSelector extends Sequence {
-
   onInitialize() {
     super.onInitialize();
     // Randomize order

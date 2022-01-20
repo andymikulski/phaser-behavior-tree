@@ -1,15 +1,21 @@
 import Phaser from 'phaser';
-import { BehaviorStatus, BehaviorTree, Condition, Decorator } from './BehaviorTree';
-import { FreshSequence, Sequence } from "./Sequence";
-import { ActiveSelector, Selector } from "./Selector";
-import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand, SetAnimationSpeed, SetAnimation } from './main';
-import { SpawnProjectileBurst, SpawnSimpleProjectile } from './Projectile';
-import { GenericAction, getClosestFood, HasFoodNearby } from './Chicken';
-import Blackboard from './Blackboard';
-import { Throttle, TomatoCrop } from './TomatoCrop';
+import { BehaviorTree } from './ai/BehaviorTree';
+import { Decorator } from "./ai/base/Decorator";
+import { BehaviorStatus } from "./ai/base/BehaviorStatus";
+import { ActiveSelector } from "./ai/base/Selector";
+import { LocalPlayer, rand } from './main';
+import { SetAnimation } from "./ai/actions/SetAnimation";
+import { IsTargetWithinDistance } from "./ai/conditions/IsTargetWithinDistance";
+import { WaitMillisecondsAction } from "./ai/actions/WaitMillisecondsAction";
+import { GenericAction } from "./ai/actions/GenericAction";
+import Blackboard from './ai/data/Blackboard';
 import { ActualTree } from './ActualTree';
 import PoissonNeighborhood from './NeighborhoodGenerator';
-import { RandomSelector } from './RandomSelector';
+import { Condition } from './ai/base/Condition';
+import { FreshSequence } from './ai/base/Sequence';
+import { LoggingAction } from './ai/actions/LoggingAction';
+import AccelerateAwayFromPosition from './ai/actions/AccelerateAwayFromPosition';
+import { LinearMotionTowardsPosition } from './ai/actions/LinearMotionTowardsPosition';
 
 
 export class Falsy extends Decorator {

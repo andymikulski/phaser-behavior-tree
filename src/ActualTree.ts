@@ -1,10 +1,16 @@
 import Phaser from 'phaser';
-import { Action, Behavior, BehaviorStatus, BehaviorTree, Condition, Decorator } from './BehaviorTree';
-import { FreshSequence, Sequence } from "./Sequence";
-import { ActiveSelector, Selector } from "./Selector";
-import { Item, LocalPlayer, LoggingAction, IsTargetWithinDistance, SetEmote, AccelerateAwayFromPosition, Inverter, CheckAmmoLevel, WaitMillisecondsAction, SetAmmo, LinearMotionTowardsPosition, AdjustHealth, AdjustAmmoAction, rand, IsTargetActivelyMoving, SetAnimationSpeed } from './main';
-import Blackboard from './Blackboard';
-import { AddObjectTagToBlackboard, HasSunlight, RemoveObjectTagFromBlackboard, SetTextureAction } from './TomatoCrop';
+import { BehaviorTree } from './ai/BehaviorTree';
+import { BehaviorStatus } from"./ai/base/BehaviorStatus";
+import { ActiveSelector } from "./ai/base/Selector";
+import { Inverter } from "./ai/decorators/Inverter";
+import { WaitMillisecondsAction } from "./ai/actions/WaitMillisecondsAction";
+import Blackboard from './ai/data/Blackboard';
+import { HasSunlight } from './TomatoCrop';
+import { RemoveObjectTagFromBlackboard } from "./ai/data/RemoveObjectTagFromBlackboard";
+import { SetTextureAction } from "./ai/actions/SetTextureAction";
+import { Condition } from './ai/base/Condition';
+import { FreshSequence } from './ai/base/Sequence';
+import { AddObjectTagToBlackboard } from './ai/data/AddObjectTagToBlackboard';
 
 
 export class IsTreeFullyGrown extends Condition {

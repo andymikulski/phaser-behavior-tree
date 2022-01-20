@@ -1,28 +1,3 @@
-export class BehaviorTree {
-  private _enabled: boolean = true;
-  public get enabled(): boolean {
-    return this._enabled;
-  }
-  public set enabled(v: boolean) {
-    this._enabled = v;
-  }
-
-  constructor(private rootNode: Behavior) { }
-  tick() {
-    if (!this.enabled) {
-      return BehaviorStatus.FAILURE;
-    }
-    return this.rootNode.tick();
-  }
-  abort() {
-    return this.rootNode.abort?.();
-  }
-
-  setRootNode(node:Behavior) {
-    this.rootNode?.abort?.();
-    this.rootNode = node;
-  }
-}
 
 export enum BehaviorStatus {
   RUNNING = 'RUNNING',
@@ -111,47 +86,3 @@ export abstract class Behavior {
     return this.status;
   }
 }
-
-// `Action`s are leaf nodes that have the responsibility of accessing info from the world,
-// as well as making _changes_ to the world.
-
-
-// Conditions are leaf nodes which check information in the world and return a boolean result,
-// as they rely on the return statuses of behaviors (success/failure).
-
-export abstract class Condition extends Behavior { }
-export abstract class Action extends Behavior { }
-
-
-export abstract class Decorator extends Behavior {
-  constructor(protected child: Behavior) {
-    super();
-  }
-  // tick() {
-  //   return this.child.tick();
-  // }
-}
-
-
-
-// Composites are branches with multiple behaviors
-
-export abstract class Composite extends Behavior {
-  constructor(protected children: Behavior[] = []) { super(); };
-
-  addChild = (behavior: Behavior) => {
-    this.children.push(behavior);
-  }
-  removeChild = (behavior: Behavior) => {
-    this.children = this.children.filter(b => b !== behavior);
-  }
-  clearChildren = () => {
-    this.children = [];
-  }
-  getChildren = () => {
-    return this.children;
-  }
-}
-
-
-
