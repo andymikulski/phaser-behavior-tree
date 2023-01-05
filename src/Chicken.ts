@@ -193,6 +193,7 @@ export class Chicken extends Phaser.Physics.Arcade.Image {
         // Night time? Go to nearby light source
         new FreshSequence([
           new Inverter(new HasDaylight(this.blackboard)),
+          new SetEmote(this, null),
           new LinearMotionTowardsPosition(
             this,
             () => {
@@ -202,7 +203,7 @@ export class Chicken extends Phaser.Physics.Arcade.Image {
                 2000
               );
             },
-            128,
+            100,
             75
           ),
           new FailingAction(),
@@ -210,6 +211,7 @@ export class Chicken extends Phaser.Physics.Arcade.Image {
 
         // Find and eat nearby food
         new FreshSequence([
+          new HasDaylight(this.blackboard),
           new HasFoodNearby(this.blackboard, this.body?.position ?? this, 200),
           new SetEmote(this, "exclamation"),
           new SetAnimationSpeed(this.avatar, 2),

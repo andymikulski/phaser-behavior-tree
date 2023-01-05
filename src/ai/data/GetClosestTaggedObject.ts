@@ -22,6 +22,7 @@ export const GetClosestTaggedObject = (blackboard: Blackboard, pos: { x: number;
     );
     if (dist < smallestDist) {
       closest = found[i];
+      smallestDist = dist;
     }
   }
   return closest === null ? closest : (closest.body?.position ?? closest);

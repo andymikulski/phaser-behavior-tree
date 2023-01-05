@@ -89,7 +89,7 @@ export class MainGameScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
     // this.cameras.main.setDeadzone(400, 200);
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
       const plant = new TomatoCrop(this, rand() * worldWidth, rand() * worldHeight, this.aiBlackboard);
       plant.growthStage = Math.floor(Math.random() * 5);
       this.physics.add.existing(plant).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);
@@ -99,7 +99,7 @@ export class MainGameScene extends Phaser.Scene {
       hood.registerObstacle([plant.x, plant.y, 10]);
     }
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
       const tree = new ActualTree(this, Math.random() * worldWidth, Math.random() * worldHeight, this.aiBlackboard);
       // tree.setDisplaySize(32, 32).setDepth(10);
       this.physics.add.existing(tree).setCollideWorldBounds(true).setMaxVelocity(150, 150).setImmovable(false).setPushable(true);

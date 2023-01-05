@@ -24,7 +24,7 @@ class ClearFog extends Action {
   update() {
     const emitters = (this.blackboard.getTagged('gfx:clear-fog') || []) as Phaser.GameObjects.Components.Transform[];
     for (let i = 0; i < emitters.length; i++) {
-      this.self.fog.reveal(emitters[i].x, emitters[i].y, emitters[i] instanceof LocalPlayer ? 12 : 32);
+      this.self.fog.reveal(emitters[i].x, emitters[i].y, (emitters[i] instanceof LocalPlayer ? 24 : 48) * 2);
     }
     return BehaviorStatus.SUCCESS;
   }
@@ -42,7 +42,7 @@ class NightFog extends Sequence {
     const worldWidth = this.blackboard.get('worldWidth', 1024);
     const worldHeight = this.blackboard.get('worldHeight', 768);
 
-    const fog = new FogOfWar(scene, worldWidth, worldHeight, 512, 0.0025);
+    const fog = new FogOfWar(scene, worldWidth, worldHeight, 1024, 0.0025);
     fog.fogColor = 0x111111;
     fog.fogTexture.setDepth(100000);
     this.fog = fog;
@@ -58,7 +58,7 @@ class NightFog extends Sequence {
       new GrowFog(this, this.blackboard),
       new GenericAction(() => {
         let now = Date.now();
-        if (now - lastSwitch < 10_000) {
+        if (now - lastSwitch < 7_500) {
           return BehaviorStatus.SUCCESS;
         }
         lastSwitch = now;
@@ -73,7 +73,7 @@ class NightFog extends Sequence {
           targets: this.fog.fogTexture,
           alpha: isVisible ? 0.5 : 0,
           ease: 'Linear',
-          duration: 5000,
+          duration: 2500,
         });
 
         return isDay ? BehaviorStatus.FAILURE : BehaviorStatus.SUCCESS;

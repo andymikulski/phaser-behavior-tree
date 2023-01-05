@@ -9,6 +9,7 @@ import { Idle } from "./ai/actions/Idle";
 import { Sequence } from "./ai/base/Sequence";
 import { LinearMotionTowardsPosition } from "./ai/actions/LinearMotionTowardsPosition";
 import { Condition } from "./ai/base/Condition";
+import { SetAnimation } from "./ai/actions/SetAnimation";
 
 export const rand = () => (Math.random() + Math.random() + Math.random()) / 3;
 
@@ -112,7 +113,7 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
       .sprite(0, 0, "generic-avatar", "walk-0")
       .setDepth(2)
       .setDisplaySize(64, 64)
-      .setOrigin(0, 0);
+      .setOrigin(0.25, 0.4);
 
     this.avatar.anims.create({
       key: "walk-s",
@@ -408,7 +409,7 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
       repeat: -1,
     });
 
-    this.avatar.anims.play("walk-s");
+    // this.avatar.anims.play("walk-s");
 
     this.avatar.setDepth(0);
 
@@ -419,6 +420,7 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
           //   new IsTargetWithinDistance(this, target, 400),
           //   new AccelerateTowardsPosition(this, target),
           // ]),
+          new SetAnimation(this.avatar, "walk-s", true),
           new LinearMotionTowardsPosition(this, target),
         ])
       );
@@ -426,17 +428,22 @@ export class LocalPlayer extends Phaser.Physics.Arcade.Image {
     const normalMoveTree = (target: { x: number; y: number }) =>
       new BehaviorTree(
         new Sequence([
+          new SetAnimation(this.avatar, "walk-s", true),
           new LinearMotionTowardsPosition(this, target, 5, 220),
+          new SetAnimation(this.avatar, "idle-s", true),
           new GotoBranch(this, idleTree),
         ])
       );
 
-    const idleTree = new BehaviorTree(new Idle());
+    const idleTree = new BehaviorTree(new Sequence([
+      new SetAnimation(this.avatar, "idle-s", true),
+      new Idle(),
+    ]));
 
     this.ai = idleTree;
 
     const throttleChangeTHing = throttle((pointer: Phaser.Input.Pointer) => {
-      if (pointer.rightButtonDown()) {
+      if (pointer.leftButtonDown() || pointer.rightButtonDown()) {
         // this.ai.abort();
         this.ai = normalMoveTree({ x: pointer.worldX, y: pointer.worldY });
       } //else if (pointer.leftButtonDown()) {
